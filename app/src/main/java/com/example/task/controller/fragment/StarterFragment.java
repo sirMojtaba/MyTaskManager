@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.task.R;
-import com.example.task.controller.activity.TaskActivity;
+import com.example.task.controller.activity.TaskListActivity;
+import com.google.android.material.textfield.TextInputEditText;
 
 
-public class UserFragment extends Fragment {
+public class StarterFragment extends Fragment {
     public static final String EXTRA_NUMBER_OF_TASKS = "number of tasks";
     public static final String EXTRA_USER_NAME = "user name";
     private EditText mEditTextUserName;
@@ -23,16 +25,16 @@ public class UserFragment extends Fragment {
     private Button mButtonBuild;
 
 
-    public UserFragment() {
+    public StarterFragment() {
         // Required empty public constructor
     }
 
-    /*public static UserFragment newInstance() {
-        UserFragment fragment = new UserFragment();
+    public static StarterFragment newInstance() {
+        StarterFragment fragment = new StarterFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }*/
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_starter, container, false);
         findViews(view);
         setClickListeners();
         return view;
@@ -54,16 +56,21 @@ public class UserFragment extends Fragment {
         mEditTextUserName = view.findViewById(R.id.edit_text_user_name);
         mEditTextNumberOfTasks = view.findViewById(R.id.edit_text_number_of_tasks);
         mButtonBuild = view.findViewById(R.id.button_build);
+
     }
 
     private void setClickListeners() {
         mButtonBuild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), TaskActivity.class);
-                intent.putExtra(EXTRA_NUMBER_OF_TASKS, mEditTextNumberOfTasks.toString());
-                intent.putExtra(EXTRA_USER_NAME, mEditTextUserName.toString());
-                startActivity(intent);
+                if (mEditTextUserName.getText().length() == 0 || mEditTextNumberOfTasks.getText().length() == 0)
+                    Toast.makeText(getActivity(), "fill the blanks first!", Toast.LENGTH_SHORT).show();
+                else {
+                    Intent intent = new Intent(getActivity(), TaskListActivity.class);
+                    intent.putExtra(EXTRA_USER_NAME, mEditTextUserName.getText().toString());
+                    intent.putExtra(EXTRA_NUMBER_OF_TASKS, Integer.parseInt(mEditTextNumberOfTasks.getText().toString()));
+                    startActivity(intent);
+                }
             }
         });
     }
