@@ -1,17 +1,20 @@
 package com.example.task.model;
 
+import com.example.task.enums.TaskState;
+
 import java.util.Random;
 
 public class Task {
     private String mName;
+    private TaskState mTaskState;
 
-    private enum States {
-        TODO, DOING, DONE
+
+    public TaskState getTaskState() {
+        return mTaskState;
     }
 
-    public States getState() {
-        int pick = new Random().nextInt(States.values().length);
-        return States.values()[pick];
+    public void setTaskState(TaskState taskState) {
+        mTaskState = taskState;
     }
 
     public String getName() {
@@ -24,5 +27,13 @@ public class Task {
 
     public Task(String name) {
         mName = name;
+    }
+
+    public Task(String name, TaskState taskState) {
+        mName = name;
+        mTaskState = taskState;
+    }
+
+    public Task() {
     }
 }

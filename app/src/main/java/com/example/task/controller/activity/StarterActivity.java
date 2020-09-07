@@ -8,6 +8,6 @@ public class StarterActivity extends SingleFragmentActivity {
 
     @Override
     public Fragment createFragment() {
-        return new StarterFragment();
+        return StarterFragment.newInstance();
     }
 }

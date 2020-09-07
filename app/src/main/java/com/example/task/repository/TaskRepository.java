@@ -8,22 +8,24 @@ import java.util.List;
 public class TaskRepository {
     private static TaskRepository sTaskRepository;
 
-    public static TaskRepository getInstance(String name, int number) {
+    public static TaskRepository getInstance() {
         if (sTaskRepository == null)
-            sTaskRepository = new TaskRepository(name, number);
+            sTaskRepository = new TaskRepository();
 
         return sTaskRepository;
     }
 
     private List<Task> mTasks = new ArrayList<>();
 
-    private TaskRepository(String name, int number) {
+    /*private TaskRepository(String name, int number) {
         for (int i = 0; i < number; i++) {
             Task task = new Task(name + " " + (i + 1));
             mTasks.add(task);
         }
-    }
+    }*/
 
+    private TaskRepository() {
+    }
 
     public List<Task> getTasks() {
         return mTasks;

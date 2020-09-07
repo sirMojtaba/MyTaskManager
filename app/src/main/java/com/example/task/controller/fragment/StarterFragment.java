@@ -14,15 +14,25 @@ import android.widget.Toast;
 
 import com.example.task.R;
 import com.example.task.controller.activity.TaskListActivity;
+import com.example.task.enums.TaskState;
+import com.example.task.model.Task;
+import com.example.task.repository.TaskRepository;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.SnackbarContentLayout;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 public class StarterFragment extends Fragment {
-    public static final String EXTRA_NUMBER_OF_TASKS = "number of tasks";
-    public static final String EXTRA_USER_NAME = "user name";
+//    public static final String EXTRA_NUMBER_OF_TASKS = "number of tasks";
+//    public static final String EXTRA_USER_NAME = "user name";
     private EditText mEditTextUserName;
     private EditText mEditTextNumberOfTasks;
     private Button mButtonBuild;
+    private TaskRepository mTaskRepository;
 
 
     public StarterFragment() {
@@ -39,6 +49,8 @@ public class StarterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mTaskRepository = TaskRepository.getInstance();
+
 
     }
 
@@ -56,7 +68,6 @@ public class StarterFragment extends Fragment {
         mEditTextUserName = view.findViewById(R.id.edit_text_user_name);
         mEditTextNumberOfTasks = view.findViewById(R.id.edit_text_number_of_tasks);
         mButtonBuild = view.findViewById(R.id.button_build);
-
     }
 
     private void setClickListeners() {
@@ -64,14 +75,31 @@ public class StarterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (mEditTextUserName.getText().length() == 0 || mEditTextNumberOfTasks.getText().length() == 0)
-                    Toast.makeText(getActivity(), "fill the blanks first!", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getActivity().findViewById(R.id.fragment_container), "Fill both of the blanks first!", Snackbar.LENGTH_LONG).show();
                 else {
-                    Intent intent = new Intent(getActivity(), TaskListActivity.class);
-                    intent.putExtra(EXTRA_USER_NAME, mEditTextUserName.getText().toString());
-                    intent.putExtra(EXTRA_NUMBER_OF_TASKS, Integer.parseInt(mEditTextNumberOfTasks.getText().toString()));
-                    startActivity(intent);
+                    mTaskRepository.setTasks(buildTaskList());
+                    startActivity();
                 }
             }
         });
+    }
+
+    private void startActivity() {
+        Intent intent = new Intent(getActivity(), TaskListActivity.class);
+        startActivity(intent);
+    }
+
+    private List<Task> buildTaskList() {
+        List<Task> taskList = new ArrayList<>();
+        for (int i = 0; i < Integer.parseInt(mEditTextNumberOfTasks.getText().toString()); i++) {
+            Task task = new Task(mEditTextUserName.getText().toString() + " " + (i + 1), getState());
+            taskList.add(task);
+        }
+        return taskList;
+    }
+
+    public TaskState getState() {
+        int pick = new Random().nextInt(TaskState.values().length);
+        return TaskState.values()[pick];
     }
 }
