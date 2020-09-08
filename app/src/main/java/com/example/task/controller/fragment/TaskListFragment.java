@@ -26,7 +26,7 @@ import java.util.List;
 
 public class TaskListFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    TaskRepository mTaskRepository;
+    private TaskRepository mTaskRepository;
 
     public TaskListFragment() {
         // Required empty public constructor

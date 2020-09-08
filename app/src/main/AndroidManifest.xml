@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Bridge">
         <activity android:name=".controller.activity.PagerActivity">
+
+        </activity>
+        <activity android:name=".controller.activity.TaskListActivity" />
+        <activity android:name=".controller.activity.StarterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".controller.activity.TaskListActivity" />
-        <activity android:name=".controller.activity.StarterActivity">
-
         </activity>
     </application>
 

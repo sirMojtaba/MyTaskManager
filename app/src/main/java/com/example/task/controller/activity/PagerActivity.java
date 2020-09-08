@@ -1,18 +1,13 @@
 package com.example.task.controller.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskViewPagerAdapter;
-import com.example.task.controller.fragment.DoingFragment;
-import com.example.task.controller.fragment.DoneFragment;
-import com.example.task.controller.fragment.TodoFragment;
+import com.example.task.controller.fragment.TaskFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -54,6 +49,14 @@ public class PagerActivity extends AppCompatActivity {
                 break;
         }
         return title;
+    }
+
+    private void updateRecyclerView() {
+        for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
+            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskFragment)
+                ((TaskFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
+
+        }
     }
 
 }

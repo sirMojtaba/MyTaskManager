@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.task.R;
+import com.example.task.controller.activity.PagerActivity;
 import com.example.task.controller.activity.TaskListActivity;
 import com.example.task.enums.TaskState;
 import com.example.task.model.Task;
@@ -27,8 +28,6 @@ import java.util.Random;
 
 
 public class StarterFragment extends Fragment {
-//    public static final String EXTRA_NUMBER_OF_TASKS = "number of tasks";
-//    public static final String EXTRA_USER_NAME = "user name";
     private EditText mEditTextUserName;
     private EditText mEditTextNumberOfTasks;
     private Button mButtonBuild;
@@ -85,7 +84,7 @@ public class StarterFragment extends Fragment {
     }
 
     private void startActivity() {
-        Intent intent = new Intent(getActivity(), TaskListActivity.class);
+        Intent intent = new Intent(getActivity(), PagerActivity.class);
         startActivity(intent);
     }
 
