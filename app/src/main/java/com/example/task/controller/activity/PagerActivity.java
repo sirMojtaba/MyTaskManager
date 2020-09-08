@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 
 import com.example.task.R;
+import com.example.task.adapter.TaskViewPagerAdapter;
 import com.example.task.controller.fragment.DoingFragment;
 import com.example.task.controller.fragment.DoneFragment;
 import com.example.task.controller.fragment.TodoFragment;
@@ -18,44 +19,20 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class PagerActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
+    private TaskViewPagerAdapter mTaskViewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pager);
-        findViews();
-        FragmentStateAdapter adapter = new FragmentStateAdapter(this) {
-            @NonNull
-            @Override
-            public Fragment createFragment(int position) {
-                return setTabFragment(position);
-            }
 
-            @Override
-            public int getItemCount() {
-                return 3;
-            }
-        };
-        mViewPager.setAdapter(adapter);
+        findViews();
+
+        mTaskViewPagerAdapter = new TaskViewPagerAdapter(this);
+        mViewPager.setAdapter(mTaskViewPagerAdapter);
 
         new TabLayoutMediator(mTabLayout, mViewPager,
                 (mTabLayout, position) -> mTabLayout.setText(setTabText(position))).attach();
-    }
-
-    private Fragment setTabFragment(int position) {
-        Fragment fragment = null;
-        switch (position) {
-            case 0:
-                fragment = new TodoFragment();
-                break;
-            case 1:
-                fragment = new DoingFragment();
-                break;
-            case 2:
-                fragment = new DoneFragment();
-                break;
-        }
-        return fragment;
     }
 
     private void findViews() {
