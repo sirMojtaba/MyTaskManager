@@ -1,7 +1,6 @@
 package com.example.task.controller.fragment;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,23 +15,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.task.R;
-import com.example.task.enums.TaskState;
 import com.example.task.model.Task;
 import com.example.task.repository.TaskRepository;
 
 import java.util.List;
 
 
-public class TaskListFragment extends Fragment {
+public class TaskRecyclerViewFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private TaskRepository mTaskRepository;
 
-    public TaskListFragment() {
+    public TaskRecyclerViewFragment() {
         // Required empty public constructor
     }
 
-    public static TaskListFragment newInstance() {
-        TaskListFragment fragment = new TaskListFragment();
+    public static TaskRecyclerViewFragment newInstance() {
+        TaskRecyclerViewFragment fragment = new TaskRecyclerViewFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -50,7 +47,7 @@ public class TaskListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_task_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_task_recycler_view, container, false);
 
         findViews(view);
 

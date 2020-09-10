@@ -4,16 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskViewPagerAdapter;
-import com.example.task.controller.fragment.TaskFragment;
+import com.example.task.controller.fragment.StarterFragment;
+import com.example.task.controller.fragment.TaskViewPagerFragment;
+import com.example.task.enums.TaskState;
+import com.example.task.model.Task;
+import com.example.task.repository.TaskRepository;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class PagerActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
+    private TaskRepository mTaskRepository;
+    private FloatingActionButton mFloatingActionButton;
     private TaskViewPagerAdapter mTaskViewPagerAdapter;
 
     @Override
@@ -23,16 +33,40 @@ public class PagerActivity extends AppCompatActivity {
 
         findViews();
 
-        mTaskViewPagerAdapter = new TaskViewPagerAdapter(this);
-        mViewPager.setAdapter(mTaskViewPagerAdapter);
+        setViewPagerAdapter();
 
         new TabLayoutMediator(mTabLayout, mViewPager,
                 (mTabLayout, position) -> mTabLayout.setText(setTabText(position))).attach();
+
+        mTaskRepository = TaskRepository.getInstance();
+
+        setClickListeners();
+    }
+
+    private void setViewPagerAdapter() {
+        mTaskViewPagerAdapter = new TaskViewPagerAdapter(this);
+        mViewPager.setAdapter(mTaskViewPagerAdapter);
+    }
+
+    private void setClickListeners() {
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = mTaskRepository.getTasks().get(0).getName();
+                Task task = new Task(name, StarterFragment.getState());
+                mTaskRepository.addTask(task);
+                Snackbar.make(v, "The new task is added to " + task.getTaskState() + " tab",
+                        Snackbar.LENGTH_LONG).show();
+                updateRecyclerView();
+            }
+        });
     }
 
     private void findViews() {
         mTabLayout = findViewById(R.id.tab_layout);
         mViewPager = findViewById(R.id.view_pager);
+        mFloatingActionButton = findViewById(R.id.floating_action_button);
+
     }
 
     private String setTabText(int position) {
@@ -53,12 +87,10 @@ public class PagerActivity extends AppCompatActivity {
 
     private void updateRecyclerView() {
         for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
-            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskFragment)
-                ((TaskFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
-
+            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskViewPagerFragment)
+                ((TaskViewPagerFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
         }
     }
-
 }
 
 

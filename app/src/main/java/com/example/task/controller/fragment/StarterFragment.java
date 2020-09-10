@@ -10,17 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.task.R;
 import com.example.task.controller.activity.PagerActivity;
-import com.example.task.controller.activity.TaskListActivity;
 import com.example.task.enums.TaskState;
 import com.example.task.model.Task;
 import com.example.task.repository.TaskRepository;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.snackbar.SnackbarContentLayout;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +70,8 @@ public class StarterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (mEditTextUserName.getText().length() == 0 || mEditTextNumberOfTasks.getText().length() == 0)
-                    Snackbar.make(getActivity().findViewById(R.id.fragment_container), "Fill both of the blanks first!", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().findViewById(R.id.fragment_container),
+                            "Fill both of the blanks first!", Snackbar.LENGTH_LONG).show();
                 else {
                     mTaskRepository.setTasks(buildTaskList());
                     startActivity();
@@ -97,7 +94,7 @@ public class StarterFragment extends Fragment {
         return taskList;
     }
 
-    public TaskState getState() {
+    public static TaskState getState() {
         int pick = new Random().nextInt(TaskState.values().length);
         return TaskState.values()[pick];
     }

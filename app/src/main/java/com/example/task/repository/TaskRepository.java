@@ -34,4 +34,9 @@ public class TaskRepository {
     public void setTasks(List<Task> tasks) {
         mTasks = tasks;
     }
+
+    //create
+    public void addTask(Task task){
+        mTasks.add(task);
+    }
 }

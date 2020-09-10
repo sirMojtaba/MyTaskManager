@@ -5,17 +5,17 @@ import android.content.Intent;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.task.controller.fragment.TaskListFragment;
+import com.example.task.controller.fragment.TaskRecyclerViewFragment;
 
-public class TaskListActivity extends SingleFragmentActivity {
+public class TaskRecyclerViewActivity extends SingleFragmentActivity {
     public static Intent newIntent(Context context){
-        Intent intent = new Intent(context, TaskListActivity.class);
+        Intent intent = new Intent(context, TaskRecyclerViewActivity.class);
         return intent;
     }
 
     @Override
     public Fragment createFragment() {
-        return TaskListFragment.newInstance();
+        return TaskRecyclerViewFragment.newInstance();
     }
 
 }

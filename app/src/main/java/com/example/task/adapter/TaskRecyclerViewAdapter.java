@@ -15,11 +15,15 @@ import com.example.task.model.Task;
 
 import java.util.List;
 
-public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskViewHolder> {
+public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerViewAdapter.TaskViewHolder> {
 
     private List<Task> mTaskList;
 
-    public TaskListAdapter(List<Task> taskList) {
+    public void setTaskList(List<Task> taskList) {
+        mTaskList = taskList;
+    }
+
+    public TaskRecyclerViewAdapter(List<Task> taskList) {
         mTaskList = taskList;
     }
 
@@ -41,8 +45,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
         else {
             holder.mLayoutRow.setBackgroundColor(Color.parseColor("#27FF0057"));
         }
-
-
     }
 
     @Override
@@ -67,8 +69,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
             mTextViewName.setText(task.getName());
             mTextViewState.setText(String.valueOf(task.getTaskState()));
         }
-
-
     }
 
 }
