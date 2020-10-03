@@ -88,7 +88,7 @@ public class StarterFragment extends Fragment {
     private List<Task> buildTaskList() {
         List<Task> taskList = new ArrayList<>();
         for (int i = 0; i < Integer.parseInt(mEditTextNumberOfTasks.getText().toString()); i++) {
-            Task task = new Task(mEditTextUserName.getText().toString() + " " + (i + 1), getState());
+            Task task = new Task(mEditTextUserName.getText().toString(), getState());
             taskList.add(task);
         }
         return taskList;

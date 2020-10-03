@@ -25,11 +25,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/gradient"
         android:src="@drawable/ic_add"
-        android:tint="@color/colorPrimary"
-        app:backgroundTint="#FFFFFF" />
+        android:tint="#FFFFFF"
+        app:backgroundTint="#B34CC5" />
 
 
 

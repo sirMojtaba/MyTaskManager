@@ -15,7 +15,21 @@
         android:shadowColor="#C63A3A"
         android:text="TextView"
         android:textSize="16sp"
-        tools:text="name" />
+        tools:text="Title" />
+
+    <TextView
+        android:id="@+id/text_view_row_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:text="Description" />
+
+    <TextView
+        android:id="@+id/text_view_row_date_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:text="Date, Time" />
 
     <TextView
         android:id="@+id/text_view_row_state"

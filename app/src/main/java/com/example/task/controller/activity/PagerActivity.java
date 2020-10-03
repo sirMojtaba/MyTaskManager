@@ -8,18 +8,15 @@ import android.view.View;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskViewPagerAdapter;
-import com.example.task.controller.fragment.StarterFragment;
+import com.example.task.controller.fragment.TaskDetailDialogFragment;
 import com.example.task.controller.fragment.TaskViewPagerFragment;
-import com.example.task.enums.TaskState;
-import com.example.task.model.Task;
 import com.example.task.repository.TaskRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class PagerActivity extends AppCompatActivity {
+    public static final String TASK_DIALOG_FRAGMENT = "task dialog fragment";
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
     private TaskRepository mTaskRepository;
@@ -52,12 +49,14 @@ public class PagerActivity extends AppCompatActivity {
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = mTaskRepository.getTasks().get(0).getName();
+                TaskDetailDialogFragment taskDetailDialogFragment = TaskDetailDialogFragment.newInstance();
+                taskDetailDialogFragment.show(getSupportFragmentManager(), TASK_DIALOG_FRAGMENT);
+                /*String name = mTaskRepository.getTasks().get(0).getName();
                 Task task = new Task(name, StarterFragment.getState());
                 mTaskRepository.addTask(task);
                 Snackbar.make(v, "The new task is added to " + task.getTaskState() + " tab",
                         Snackbar.LENGTH_LONG).show();
-                updateRecyclerView();
+                updateRecyclerView();*/
             }
         });
     }

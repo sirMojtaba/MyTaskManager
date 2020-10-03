@@ -77,7 +77,7 @@ public class TaskRecyclerViewFragment extends Fragment {
         }
 
         public void bindTask(Task task) {
-            mTextViewName.setText(task.getName());
+            mTextViewName.setText(task.getTitle());
             mTextViewState.setText(String.valueOf(task.getTaskState()));
         }
     }
