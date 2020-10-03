@@ -2,6 +2,7 @@ package com.example.task.controller.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.task.R;
 
 
 public class TaskDetailDialogFragment extends DialogFragment {
+    public static final String DATE_PICKER = "date picker";
     private EditText mEditTextTitle;
     private EditText mEditTextDescription;
     private Button mButtonDate;
@@ -47,6 +49,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.fragment_task_detail_dialog, null);
         findViews(view);
+        setClickListeners();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("task")
                 .setNeutralButton("save", null)
@@ -62,5 +65,15 @@ public class TaskDetailDialogFragment extends DialogFragment {
         mEditTextDescription = view.findViewById(R.id.edit_text_new_task_description);
         mButtonDate = view.findViewById(R.id.button_new_task_date);
         mButtonTime = view.findViewById(R.id.button_new_task_time);
+    }
+
+    private void setClickListeners (){
+        mButtonDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment.newInstance();
+                datePickerDialogFragment.show(getFragmentManager(), DATE_PICKER);
+            }
+        });
     }
 }
