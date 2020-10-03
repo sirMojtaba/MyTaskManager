@@ -15,16 +15,15 @@ import android.view.ViewGroup;
 
 import com.example.task.R;
 
+public class TimePickerDialogFragment extends DialogFragment {
 
-public class DatePickerDialogFragment extends DialogFragment {
 
-
-    public DatePickerDialogFragment() {
+    public TimePickerDialogFragment() {
         // Required empty public constructor
     }
 
-    public static DatePickerDialogFragment newInstance() {
-        DatePickerDialogFragment fragment = new DatePickerDialogFragment();
+    public static TimePickerDialogFragment newInstance() {
+        TimePickerDialogFragment fragment = new TimePickerDialogFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -41,13 +40,12 @@ public class DatePickerDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View view = inflater.inflate(R.layout.fragment_date_picker_dialog, null);
+        View view = inflater.inflate(R.layout.fragment_time_picker_dialog, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         AlertDialog dialog = builder.create();
         return dialog;
-
 
     }
 }

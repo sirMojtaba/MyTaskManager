@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskViewPagerAdapter;
-import com.example.task.controller.fragment.TaskDetailDialogFragment;
+import com.example.task.controller.fragment.NewTaskDialogFragment;
 import com.example.task.controller.fragment.TaskViewPagerFragment;
 import com.example.task.repository.TaskRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,8 +49,8 @@ public class PagerActivity extends AppCompatActivity {
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TaskDetailDialogFragment taskDetailDialogFragment = TaskDetailDialogFragment.newInstance();
-                taskDetailDialogFragment.show(getSupportFragmentManager(), TASK_DIALOG_FRAGMENT);
+                NewTaskDialogFragment newTaskDialogFragment = NewTaskDialogFragment.newInstance();
+                newTaskDialogFragment.show(getSupportFragmentManager(), TASK_DIALOG_FRAGMENT);
                 /*String name = mTaskRepository.getTasks().get(0).getName();
                 Task task = new Task(name, StarterFragment.getState());
                 mTaskRepository.addTask(task);

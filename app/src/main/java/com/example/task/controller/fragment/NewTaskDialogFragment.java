@@ -2,7 +2,6 @@ package com.example.task.controller.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,20 +15,21 @@ import androidx.fragment.app.DialogFragment;
 import com.example.task.R;
 
 
-public class TaskDetailDialogFragment extends DialogFragment {
+public class NewTaskDialogFragment extends DialogFragment {
     public static final String DATE_PICKER = "date picker";
+    public static final String TIME_PICKER = "time picker";
     private EditText mEditTextTitle;
     private EditText mEditTextDescription;
     private Button mButtonDate;
     private Button mButtonTime;
 
 
-    public TaskDetailDialogFragment() {
+    public NewTaskDialogFragment() {
         // Required empty public constructor
     }
 
-    public static TaskDetailDialogFragment newInstance() {
-        TaskDetailDialogFragment fragment = new TaskDetailDialogFragment();
+    public static NewTaskDialogFragment newInstance() {
+        NewTaskDialogFragment fragment = new NewTaskDialogFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -73,6 +73,14 @@ public class TaskDetailDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment.newInstance();
                 datePickerDialogFragment.show(getFragmentManager(), DATE_PICKER);
+            }
+        });
+
+        mButtonTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialogFragment timePickerDialogFragment = TimePickerDialogFragment.newInstance();
+                timePickerDialogFragment.show(getFragmentManager(), TIME_PICKER);
             }
         });
     }
