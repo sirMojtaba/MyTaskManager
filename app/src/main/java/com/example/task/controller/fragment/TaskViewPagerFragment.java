@@ -3,13 +3,17 @@ package com.example.task.controller.fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskRecyclerViewAdapter;
@@ -20,6 +24,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static com.example.task.controller.activity.PagerActivity.TASK_DETAIL_DIALOG_FRAGMENT;
 
 public class TaskViewPagerFragment extends Fragment {
     public static final String ARGS_TASK_STATE = "task state arg";
@@ -46,8 +53,8 @@ public class TaskViewPagerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTaskRepository = TaskRepository.getInstance();
+        assert getArguments() != null;
         mTaskState = (TaskState) getArguments().getSerializable(ARGS_TASK_STATE);
-
     }
 
     @Override
@@ -56,9 +63,8 @@ public class TaskViewPagerFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task_recycler_view, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mTaskRecyclerViewAdapter = new TaskRecyclerViewAdapter(setList());
+        mTaskRecyclerViewAdapter = new TaskRecyclerViewAdapter(setList(), getActivity());
         mRecyclerView.setAdapter(mTaskRecyclerViewAdapter);
         return view;
     }
@@ -72,15 +78,13 @@ public class TaskViewPagerFragment extends Fragment {
         return tasks;
     }
 
-
     public void updateUI() {
         if (mTaskRecyclerViewAdapter == null) {
-            mTaskRecyclerViewAdapter = new TaskRecyclerViewAdapter(setList());
+            mTaskRecyclerViewAdapter = new TaskRecyclerViewAdapter(setList(), getActivity());
             mRecyclerView.setAdapter(mTaskRecyclerViewAdapter);
         } else {
             mTaskRecyclerViewAdapter.setTaskList(setList());
             mTaskRecyclerViewAdapter.notifyDataSetChanged();
         }
     }
-
 }

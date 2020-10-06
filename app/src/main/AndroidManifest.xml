@@ -12,7 +12,6 @@
         <activity android:name=".controller.activity.PagerActivity">
 
         </activity>
-        <activity android:name=".controller.activity.TaskRecyclerViewActivity" />
         <activity android:name=".controller.activity.StarterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

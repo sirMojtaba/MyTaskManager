@@ -4,34 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".controller.fragment.NewTaskDialogFragment" >
+    tools:context=".controller.fragment.TaskDetailDialogFragment" >
 
     <EditText
-        android:id="@+id/edit_text_new_task_title"
+        android:id="@+id/edit_text_task_detail_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="title"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        tools:text="title" />
 
     <EditText
-        android:id="@+id/edit_text_new_task_description"
+        android:id="@+id/edit_text_task_detail_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="description"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        tools:text="description" />
 
     <Button
-        android:id="@+id/button_new_task_date"
+        android:id="@+id/button_task_detail_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="date" />
 
     <Button
-        android:id="@+id/button_new_task_time"
+        android:id="@+id/button_task_detail_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="time" />

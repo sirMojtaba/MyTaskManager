@@ -17,13 +17,6 @@ public class TaskRepository {
 
     private List<Task> mTasks = new ArrayList<>();
 
-    /*private TaskRepository(String name, int number) {
-        for (int i = 0; i < number; i++) {
-            Task task = new Task(name + " " + (i + 1));
-            mTasks.add(task);
-        }
-    }*/
-
     private TaskRepository() {
     }
 

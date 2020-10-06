@@ -9,8 +9,7 @@ public class Task {
     private String mTitle;
     private String mDescription;
     private TaskState mTaskState;
-    private Date mDate;
-    private Time mTime;
+    private Date mDate = new Date();
 
 
 
@@ -50,20 +49,12 @@ public class Task {
         mDate = date;
     }
 
-    public Time getTime() {
-        return mTime;
-    }
 
-    public void setTime(Time time) {
-        mTime = time;
-    }
-
-    public Task(String title, String description, TaskState taskState, Date date, Time time) {
+    public Task(String title, String description, TaskState taskState, Date date) {
         mTitle = title;
         mDescription = description;
         mTaskState = taskState;
         mDate = date;
-        mTime = time;
     }
 
     public Task(String title, TaskState taskState) {
