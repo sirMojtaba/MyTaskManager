@@ -35,4 +35,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="time" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_task_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_button_task_detail_todo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TODO" />
+
+        <RadioButton
+            android:id="@+id/radio_button_task_detail_doing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Doing" />
+
+        <RadioButton
+            android:id="@+id/radio_button_task_detail_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Done" />
+    </RadioGroup>
 </LinearLayout>

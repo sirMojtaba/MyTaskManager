@@ -2,6 +2,7 @@ package com.example.task.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
         return mTaskList.size();
     }
 
+
     public class TaskViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextViewTitle;
         private TextView mTextViewDescription;
@@ -75,8 +77,9 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
             mLayoutRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TaskDetailDialogFragment taskDetailDialogFragment = TaskDetailDialogFragment.newInstance();
-                    taskDetailDialogFragment.show(((AppCompatActivity)mActivity).getSupportFragmentManager(), TASK_DETAIL_DIALOG_FRAGMENT);
+                    TaskDetailDialogFragment taskDetailDialogFragment = TaskDetailDialogFragment.newInstance(mTaskList.get(getAdapterPosition()));
+                    taskDetailDialogFragment.show(((AppCompatActivity) mActivity).getSupportFragmentManager(), TASK_DETAIL_DIALOG_FRAGMENT);
+
                 }
             });
         }
@@ -85,7 +88,8 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
             mTextViewTitle.setText(task.getTitle());
             mTextViewDescription.setText(task.getDescription());
             mTextViewDateTime.setText(task.getDate().toString());
-            mTextViewState.setText(String.valueOf(task.getTaskState()));
+            mTextViewState.setText(task.getTaskState().toString());
         }
+
     }
 }

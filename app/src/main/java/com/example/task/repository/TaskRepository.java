@@ -32,4 +32,8 @@ public class TaskRepository {
     public void addTask(Task task){
         mTasks.add(task);
     }
+
+    public void removeTask(Task task){
+        mTasks.remove(task);
+    }
 }

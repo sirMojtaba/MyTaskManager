@@ -2,10 +2,10 @@ package com.example.task.model;
 
 import com.example.task.enums.TaskState;
 
-import java.sql.Time;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Task {
+public class Task implements Serializable {
     private String mTitle;
     private String mDescription;
     private TaskState mTaskState;

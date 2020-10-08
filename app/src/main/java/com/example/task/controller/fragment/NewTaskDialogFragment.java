@@ -1,41 +1,39 @@
 package com.example.task.controller.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task.R;
-import com.example.task.adapter.TaskRecyclerViewAdapter;
-import com.example.task.controller.activity.PagerActivity;
 import com.example.task.enums.TaskState;
 import com.example.task.model.Task;
 import com.example.task.repository.TaskRepository;
-import com.google.android.material.button.MaterialButton;
+import com.example.task.utils.DateTime;
 
-import java.sql.Time;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.GregorianCalendar;
 
 
 public class NewTaskDialogFragment extends DialogFragment {
     public static final String DATE_PICKER = "date picker";
     public static final String TIME_PICKER = "time picker";
+    public static final int REQUEST_CODE_DATE_PICKER = 0;
+    public static final int REQUEST_CODE_TIME_PICKER = 1;
     private EditText mEditTextTitle;
     private EditText mEditTextDescription;
     private Button mButtonDate;
@@ -44,7 +42,8 @@ public class NewTaskDialogFragment extends DialogFragment {
     private TaskState mTaskState;
     private TaskRepository mTaskRepository;
     private OnNewTaskListener mOnNewTaskListener;
-
+    private GregorianCalendar mGregorianCalendarTime;
+    private GregorianCalendar mGregorianCalendarDate;
 
     public NewTaskDialogFragment() {
         // Required empty public constructor
@@ -61,6 +60,8 @@ public class NewTaskDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTaskRepository = TaskRepository.getInstance();
+        mGregorianCalendarDate = new GregorianCalendar();
+        mGregorianCalendarTime = new GregorianCalendar();
     }
 
     @NonNull
@@ -72,11 +73,13 @@ public class NewTaskDialogFragment extends DialogFragment {
 
         findViews(view);
         setClickListeners();
-        mButtonDate.setText(new Date().toString());
+        mButtonDate.setText(DateTime.getDate(new Date()));
+        mButtonTime.setText(DateTime.getTime(new Date()));
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("New task")
                 .setNegativeButton(android.R.string.cancel, null)
-                .setNeutralButton("save", new DialogInterface.OnClickListener() {
+                .setPositiveButton("save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         onRadioButtonClicked();
@@ -93,7 +96,15 @@ public class NewTaskDialogFragment extends DialogFragment {
     private Task buildNewTask() {
         String newTaskTitle = mEditTextTitle.getText().toString();
         String newTaskDescription = mEditTextDescription.getText().toString();
-        return new Task(newTaskTitle, newTaskDescription, mTaskState, new Date());
+        int year = mGregorianCalendarDate.get(Calendar.YEAR);
+        int month = mGregorianCalendarDate.get(Calendar.MONTH);
+        int day = mGregorianCalendarDate.get(Calendar.DAY_OF_MONTH);
+        int hour = mGregorianCalendarTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mGregorianCalendarTime.get(Calendar.MINUTE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day, hour, minute);
+
+        return new Task(newTaskTitle, newTaskDescription, mTaskState, calendar.getTime());
     }
 
     private void onRadioButtonClicked() {
@@ -124,6 +135,7 @@ public class NewTaskDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment.newInstance();
+                datePickerDialogFragment.setTargetFragment(NewTaskDialogFragment.this, REQUEST_CODE_DATE_PICKER);
                 datePickerDialogFragment.show(getFragmentManager(), DATE_PICKER);
             }
         });
@@ -132,6 +144,7 @@ public class NewTaskDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 TimePickerDialogFragment timePickerDialogFragment = TimePickerDialogFragment.newInstance();
+                timePickerDialogFragment.setTargetFragment(NewTaskDialogFragment.this, REQUEST_CODE_TIME_PICKER);
                 timePickerDialogFragment.show(getFragmentManager(), TIME_PICKER);
             }
         });
@@ -148,5 +161,23 @@ public class NewTaskDialogFragment extends DialogFragment {
         super.onAttach(context);
         if (context instanceof OnNewTaskListener)
             mOnNewTaskListener = (OnNewTaskListener) context;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode != Activity.RESULT_OK || data == null)
+            return;
+        if (requestCode == REQUEST_CODE_DATE_PICKER) {
+            Date date = (Date) data.getSerializableExtra(DatePickerDialogFragment.EXTRA_USER_SELECTED_DATE);
+            mGregorianCalendarDate.setTime(date);
+            mButtonDate.setText(DateTime.getDate(date));
+        } else if (requestCode == REQUEST_CODE_TIME_PICKER) {
+            int userSelectedHour = data.getIntExtra(TimePickerDialogFragment.EXTRA_HOUR, 0);
+            int userSelectedMinute = data.getIntExtra(TimePickerDialogFragment.EXTRA_MINUTE, 0);
+            String userSelectedTime = userSelectedHour + ":" + userSelectedMinute;
+            mButtonTime.setText(userSelectedTime);
+            mGregorianCalendarTime.set(Calendar.HOUR_OF_DAY, userSelectedHour);
+            mGregorianCalendarTime.set(Calendar.MINUTE, userSelectedMinute);
+        }
     }
 }
