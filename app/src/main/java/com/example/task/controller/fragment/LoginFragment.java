@@ -46,8 +46,6 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTaskRepository = TaskRepository.getInstance();
-
-
     }
 
     @Override
@@ -75,7 +73,6 @@ public class LoginFragment extends Fragment {
                     Snackbar.make(getActivity().findViewById(R.id.fragment_container),
                             "Fill both of the blanks first!", Snackbar.LENGTH_LONG).show();
                 else {
-                    mTaskRepository.setTasks(buildTaskList());
                     startActivity();
                 }
             }

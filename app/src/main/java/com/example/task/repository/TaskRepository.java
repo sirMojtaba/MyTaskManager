@@ -11,7 +11,6 @@ public class TaskRepository {
     public static TaskRepository getInstance() {
         if (sTaskRepository == null)
             sTaskRepository = new TaskRepository();
-
         return sTaskRepository;
     }
 
@@ -37,8 +36,4 @@ public class TaskRepository {
     public void removeTask(Task task) {
         mTasks.remove(task);
     }
-
-    /*public void updateTask(Task task) {
-        mTasks.replaceAll();
-    }*/
 }
