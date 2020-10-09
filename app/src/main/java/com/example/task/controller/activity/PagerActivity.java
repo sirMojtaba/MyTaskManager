@@ -5,14 +5,12 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskViewPagerAdapter;
 import com.example.task.controller.fragment.NewTaskDialogFragment;
 import com.example.task.controller.fragment.TaskDetailDialogFragment;
-import com.example.task.controller.fragment.TaskViewPagerFragment;
-import com.example.task.repository.TaskRepository;
+import com.example.task.controller.fragment.TaskRecyclerViewFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -80,16 +78,16 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
     @Override
     public void updateRecyclerView() {
         for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
-            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskViewPagerFragment)
-                ((TaskViewPagerFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
+            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
+                ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
         }
     }
 
     @Override
     public void onTaskClicked() {
         for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
-            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskViewPagerFragment)
-                ((TaskViewPagerFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
+            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
+                ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
         }
     }
 }

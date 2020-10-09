@@ -93,7 +93,8 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
             mTextViewDescription.setText(task.getDescription());
             mTextViewDateTime.setText(task.getDate().toString());
             mTextViewState.setText(task.getTaskState().toString());
-            mTextViewIcon.setText(task.getTitle().substring(0,1));
+            if (task.getTitle().length() != 0)
+                mTextViewIcon.setText(task.getTitle().substring(0, 1));
         }
     }
 }
