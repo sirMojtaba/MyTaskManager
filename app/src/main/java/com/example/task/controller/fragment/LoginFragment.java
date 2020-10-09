@@ -23,19 +23,20 @@ import java.util.List;
 import java.util.Random;
 
 
-public class StarterFragment extends Fragment {
+public class LoginFragment extends Fragment {
     private EditText mEditTextUserName;
-    private EditText mEditTextNumberOfTasks;
-    private Button mButtonBuild;
+    private EditText mEditTextPassword;
+    private Button mButtonLogin;
+    private Button mButtonSignUp;
     private TaskRepository mTaskRepository;
 
 
-    public StarterFragment() {
+    public LoginFragment() {
         // Required empty public constructor
     }
 
-    public static StarterFragment newInstance() {
-        StarterFragment fragment = new StarterFragment();
+    public static LoginFragment newInstance() {
+        LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -61,15 +62,16 @@ public class StarterFragment extends Fragment {
 
     private void findViews(View view) {
         mEditTextUserName = view.findViewById(R.id.edit_text_user_name);
-        mEditTextNumberOfTasks = view.findViewById(R.id.edit_text_number_of_tasks);
-        mButtonBuild = view.findViewById(R.id.button_build);
+        mEditTextPassword = view.findViewById(R.id.edit_text_password);
+        mButtonLogin = view.findViewById(R.id.button_login);
+        mButtonSignUp = view.findViewById(R.id.button_signup);
     }
 
     private void setClickListeners() {
-        mButtonBuild.setOnClickListener(new View.OnClickListener() {
+        mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mEditTextUserName.getText().length() == 0 || mEditTextNumberOfTasks.getText().length() == 0)
+                if (mEditTextUserName.getText().length() == 0 || mEditTextPassword.getText().length() == 0)
                     Snackbar.make(getActivity().findViewById(R.id.fragment_container),
                             "Fill both of the blanks first!", Snackbar.LENGTH_LONG).show();
                 else {
@@ -87,7 +89,7 @@ public class StarterFragment extends Fragment {
 
     private List<Task> buildTaskList() {
         List<Task> taskList = new ArrayList<>();
-        for (int i = 0; i < Integer.parseInt(mEditTextNumberOfTasks.getText().toString()); i++) {
+        for (int i = 0; i < Integer.parseInt(mEditTextPassword.getText().toString()); i++) {
             Task task = new Task(mEditTextUserName.getText().toString(), getState());
             taskList.add(task);
         }

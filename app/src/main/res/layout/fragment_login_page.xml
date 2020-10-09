@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context=".controller.fragment.StarterFragment">
+    tools:context=".controller.fragment.LoginFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input"
@@ -21,8 +21,6 @@
             style="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="start|top"
             android:hint="@string/user_name"
             android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -34,22 +32,20 @@
         android:layout_marginTop="8dp">
 
         <EditText
-            android:id="@+id/edit_text_number_of_tasks"
+            android:id="@+id/edit_text_password"
             style="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:hint="@string/password"
-            android:inputType="number" />
+            android:inputType="numberPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button_build"
+        android:id="@+id/button_login"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/gradient_button"
-        android:hapticFeedbackEnabled="true"
         android:text="@string/log_in"
         android:textAllCaps="false"/>
     <Button
@@ -58,7 +54,6 @@
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/gradient_button"
-        android:hapticFeedbackEnabled="true"
         android:text="@string/sign_up"
         android:textAllCaps="false"/>
 </LinearLayout>
