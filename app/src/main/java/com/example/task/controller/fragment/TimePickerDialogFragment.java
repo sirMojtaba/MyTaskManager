@@ -51,7 +51,7 @@ public class TimePickerDialogFragment extends DialogFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.fragment_time_picker_dialog, null);
 
-        mTimePicker = view.findViewById(R.id.time_picker);
+        findViews(view);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view)
@@ -65,13 +65,15 @@ public class TimePickerDialogFragment extends DialogFragment {
                         intent.putExtra(EXTRA_HOUR, hour);
                         intent.putExtra(EXTRA_MINUTE, minute);
                         fragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-
-
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null);
         AlertDialog dialog = builder.create();
         return dialog;
 
+    }
+
+    private void findViews(View view) {
+        mTimePicker = view.findViewById(R.id.time_picker);
     }
 }

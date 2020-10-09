@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="4dp">
 
 
@@ -12,31 +11,38 @@
         android:id="@+id/text_view_row_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:shadowColor="#C63A3A"
         android:text="TextView"
-        android:textSize="16sp"
-        tools:text="Title" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/text_view_row_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:text="Description" />
+        android:layout_below="@id/text_view_row_name"
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/text_view_row_date_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:text="Date, Time" />
+        android:layout_below="@id/text_view_row_description"
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/text_view_row_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="#000000"
-        android:textColorLink="#27FF0057"
-        tools:text="state" />
-</LinearLayout>
+        android:layout_below="@id/text_view_row_date_time"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/text_view_row_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/row_icon_background"
+        android:text="TextView" />
+
+</RelativeLayout>

@@ -13,6 +13,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.task.R;
@@ -65,8 +66,14 @@ public class TaskViewPagerFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mTaskRecyclerViewAdapter = new TaskRecyclerViewAdapter(setList(), getActivity());
+        /*if (mTaskRecyclerViewAdapter.getItemCount() == 0){
+            ImageView imageView = view.findViewById(R.id.image_view_no_task_list);
+            imageView.setVisibility(View.VISIBLE);
+        }*/
         mRecyclerView.setAdapter(mTaskRecyclerViewAdapter);
+
         return view;
+
     }
 
     private List<Task> setList() {

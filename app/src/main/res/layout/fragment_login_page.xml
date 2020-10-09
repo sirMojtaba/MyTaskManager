@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:gravity="start|top"
-            android:hint="Title"
+            android:hint="@string/user_name"
             android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="number of tasks"
+            android:hint="@string/password"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,5 +50,15 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/gradient_button"
         android:hapticFeedbackEnabled="true"
-        android:text="build" />
+        android:text="@string/log_in"
+        android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/button_signup"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gradient_button"
+        android:hapticFeedbackEnabled="true"
+        android:text="@string/sign_up"
+        android:textAllCaps="false"/>
 </LinearLayout>

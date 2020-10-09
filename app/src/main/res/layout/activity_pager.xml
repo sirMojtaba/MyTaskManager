@@ -33,8 +33,4 @@
         android:src="@drawable/ic_add"
         android:tint="#FFFFFF"
         app:backgroundTint="#B34CC5" />
-
-
-
-
 </RelativeLayout>

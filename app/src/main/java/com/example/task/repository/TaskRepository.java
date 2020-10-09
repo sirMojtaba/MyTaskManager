@@ -29,11 +29,16 @@ public class TaskRepository {
     }
 
     //create
-    public void addTask(Task task){
+    public void addTask(Task task) {
         mTasks.add(task);
     }
 
-    public void removeTask(Task task){
+    //delete
+    public void removeTask(Task task) {
         mTasks.remove(task);
     }
+
+    /*public void updateTask(Task task) {
+        mTasks.replaceAll();
+    }*/
 }

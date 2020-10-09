@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class PagerActivity extends AppCompatActivity implements NewTaskDialogFragment.OnNewTaskListener {
+public class PagerActivity extends AppCompatActivity implements NewTaskDialogFragment.OnNewTaskListener, TaskDetailDialogFragment.TaskDetailInterface {
     public static final String NEW_TASK_DIALOG_FRAGMENT = "task dialog fragment";
     public static final String TASK_DETAIL_DIALOG_FRAGMENT = "task detail dialog fragment";
     private TabLayout mTabLayout;
@@ -51,24 +51,14 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
             public void onClick(View v) {
                 NewTaskDialogFragment newTaskDialogFragment = NewTaskDialogFragment.newInstance();
                 newTaskDialogFragment.show(getSupportFragmentManager(), NEW_TASK_DIALOG_FRAGMENT);
-                /*String name = mTaskRepository.getTasks().get(0).getName();
-                Task task = new Task(name, StarterFragment.getState());
-                mTaskRepository.addTask(task);
-                Snackbar.make(v, "The new task is added to " + task.getTaskState() + " tab",
-                        Snackbar.LENGTH_LONG).show();
-                updateRecyclerView();*/
             }
         });
-
-
     }
 
     private void findViews() {
         mTabLayout = findViewById(R.id.tab_layout);
         mViewPager = findViewById(R.id.view_pager);
         mFloatingActionButton = findViewById(R.id.floating_action_button);
-
-
     }
 
     private String setTabText(int position) {
@@ -95,12 +85,13 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
         }
     }
 
-    /*private void updateRecyclerView() {
+    @Override
+    public void onTaskClicked() {
         for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
             if (getSupportFragmentManager().getFragments().get(i) instanceof TaskViewPagerFragment)
                 ((TaskViewPagerFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
         }
-    }*/
+    }
 }
 
 

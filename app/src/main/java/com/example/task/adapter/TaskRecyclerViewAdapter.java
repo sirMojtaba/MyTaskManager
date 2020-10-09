@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = mTaskList.get(position);
+
         holder.bindTask(task);
         if (position % 2 == 0)
             holder.mLayoutRow.setBackgroundColor(Color.parseColor("#00FFFFFF"));
@@ -65,7 +67,8 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
         private TextView mTextViewDescription;
         private TextView mTextViewState;
         private TextView mTextViewDateTime;
-        private LinearLayout mLayoutRow;
+        private RelativeLayout mLayoutRow;
+        private TextView mTextViewIcon;
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +77,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
             mTextViewDateTime = itemView.findViewById(R.id.text_view_row_date_time);
             mTextViewState = itemView.findViewById(R.id.text_view_row_state);
             mLayoutRow = itemView.findViewById(R.id.layout_row);
+            mTextViewIcon = itemView.findViewById(R.id.text_view_row_icon);
             mLayoutRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -89,7 +93,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
             mTextViewDescription.setText(task.getDescription());
             mTextViewDateTime.setText(task.getDate().toString());
             mTextViewState.setText(task.getTaskState().toString());
+            mTextViewIcon.setText(task.getTitle().charAt(0));
         }
-
     }
 }

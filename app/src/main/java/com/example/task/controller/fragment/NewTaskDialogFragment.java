@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,8 +31,8 @@ import java.util.GregorianCalendar;
 public class NewTaskDialogFragment extends DialogFragment {
     public static final String DATE_PICKER = "date picker";
     public static final String TIME_PICKER = "time picker";
-    public static final int REQUEST_CODE_DATE_PICKER = 0;
-    public static final int REQUEST_CODE_TIME_PICKER = 1;
+    public static final int REQUEST_CODE_NEW_TASK_DATE_PICKER = 0;
+    public static final int REQUEST_CODE_NEW_TASK_TIME_PICKER = 1;
     private EditText mEditTextTitle;
     private EditText mEditTextDescription;
     private Button mButtonDate;
@@ -103,7 +102,6 @@ public class NewTaskDialogFragment extends DialogFragment {
         int minute = mGregorianCalendarTime.get(Calendar.MINUTE);
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day, hour, minute);
-
         return new Task(newTaskTitle, newTaskDescription, mTaskState, calendar.getTime());
     }
 
@@ -135,7 +133,7 @@ public class NewTaskDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment.newInstance();
-                datePickerDialogFragment.setTargetFragment(NewTaskDialogFragment.this, REQUEST_CODE_DATE_PICKER);
+                datePickerDialogFragment.setTargetFragment(NewTaskDialogFragment.this, REQUEST_CODE_NEW_TASK_DATE_PICKER);
                 datePickerDialogFragment.show(getFragmentManager(), DATE_PICKER);
             }
         });
@@ -144,7 +142,7 @@ public class NewTaskDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 TimePickerDialogFragment timePickerDialogFragment = TimePickerDialogFragment.newInstance();
-                timePickerDialogFragment.setTargetFragment(NewTaskDialogFragment.this, REQUEST_CODE_TIME_PICKER);
+                timePickerDialogFragment.setTargetFragment(NewTaskDialogFragment.this, REQUEST_CODE_NEW_TASK_TIME_PICKER);
                 timePickerDialogFragment.show(getFragmentManager(), TIME_PICKER);
             }
         });
@@ -167,11 +165,11 @@ public class NewTaskDialogFragment extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode != Activity.RESULT_OK || data == null)
             return;
-        if (requestCode == REQUEST_CODE_DATE_PICKER) {
+        if (requestCode == REQUEST_CODE_NEW_TASK_DATE_PICKER) {
             Date date = (Date) data.getSerializableExtra(DatePickerDialogFragment.EXTRA_USER_SELECTED_DATE);
             mGregorianCalendarDate.setTime(date);
             mButtonDate.setText(DateTime.getDate(date));
-        } else if (requestCode == REQUEST_CODE_TIME_PICKER) {
+        } else if (requestCode == REQUEST_CODE_NEW_TASK_TIME_PICKER) {
             int userSelectedHour = data.getIntExtra(TimePickerDialogFragment.EXTRA_HOUR, 0);
             int userSelectedMinute = data.getIntExtra(TimePickerDialogFragment.EXTRA_MINUTE, 0);
             String userSelectedTime = userSelectedHour + ":" + userSelectedMinute;
