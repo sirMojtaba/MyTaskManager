@@ -6,10 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.activity.PagerActivity">
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:menu=""/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"

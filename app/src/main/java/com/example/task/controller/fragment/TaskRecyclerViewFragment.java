@@ -2,14 +2,19 @@ package com.example.task.controller.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskRecyclerViewAdapter;
@@ -23,6 +28,7 @@ import java.util.List;
 
 public class TaskRecyclerViewFragment extends Fragment {
     public static final String ARGS_TASK_STATE = "task state arg";
+    public static final String TAG_RECYCLER_VIEW = "recyclerView";
     private RecyclerView mRecyclerView;
     private TaskRepository mTaskRepository;
     private TaskState mTaskState;
@@ -50,6 +56,7 @@ public class TaskRecyclerViewFragment extends Fragment {
         mUserRepository = UserRepository.getInstance();
         assert getArguments() != null;
         mTaskState = (TaskState) getArguments().getSerializable(ARGS_TASK_STATE);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -62,6 +69,23 @@ public class TaskRecyclerViewFragment extends Fragment {
         showNoTaskImage();
         return view;
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.recycler_view_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.menu_item_delete_all):
+                WarningDialogFragment warningDialogFragment = WarningDialogFragment.newInstance();
+                warningDialogFragment.show(getFragmentManager(), TAG_RECYCLER_VIEW);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initRecyclerView() {
