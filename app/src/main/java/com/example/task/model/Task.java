@@ -4,14 +4,22 @@ import com.example.task.enums.TaskState;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 public class Task implements Serializable {
     private String mTitle;
     private String mDescription;
     private TaskState mTaskState;
     private Date mDate = new Date();
+    private UUID mUserId;
 
+    public UUID getUserId() {
+        return mUserId;
+    }
 
+    public void setUserId(UUID userId) {
+        mUserId = userId;
+    }
 
     public TaskState getTaskState() {
         return mTaskState;
@@ -63,5 +71,13 @@ public class Task implements Serializable {
     }
 
     public Task() {
+    }
+
+    public Task(String title, String description, TaskState taskState, Date date, UUID userId) {
+        mTitle = title;
+        mDescription = description;
+        mTaskState = taskState;
+        mDate = date;
+        mUserId = userId;
     }
 }

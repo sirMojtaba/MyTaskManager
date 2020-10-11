@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
+
+
     private static UserRepository sUserRepository;
 
     public static UserRepository getInstance() {
@@ -17,6 +19,8 @@ public class UserRepository {
     private UserRepository() {
     }
 
+
+    private User mCurrentUser;
     List<User> mUsers = new ArrayList<>();
 
     public List<User> getUsers() {
@@ -25,6 +29,14 @@ public class UserRepository {
 
     public void setUsers(List<User> users) {
         mUsers = users;
+    }
+
+    public User getCurrentUser() {
+        return mCurrentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        mCurrentUser = currentUser;
     }
 
     public void addUser(User user){

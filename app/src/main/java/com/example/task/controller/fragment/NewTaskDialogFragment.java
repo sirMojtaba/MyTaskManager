@@ -21,6 +21,7 @@ import com.example.task.R;
 import com.example.task.enums.TaskState;
 import com.example.task.model.Task;
 import com.example.task.repository.TaskRepository;
+import com.example.task.repository.UserRepository;
 import com.example.task.utils.DateTime;
 
 import java.util.Calendar;
@@ -43,6 +44,7 @@ public class NewTaskDialogFragment extends DialogFragment {
     private OnNewTaskListener mOnNewTaskListener;
     private GregorianCalendar mGregorianCalendarTime;
     private GregorianCalendar mGregorianCalendarDate;
+    private UserRepository mUserRepository;
 
     public NewTaskDialogFragment() {
         // Required empty public constructor
@@ -59,6 +61,7 @@ public class NewTaskDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTaskRepository = TaskRepository.getInstance();
+        mUserRepository = UserRepository.getInstance();
         mGregorianCalendarDate = new GregorianCalendar();
         mGregorianCalendarTime = new GregorianCalendar();
     }
@@ -102,7 +105,7 @@ public class NewTaskDialogFragment extends DialogFragment {
         int minute = mGregorianCalendarTime.get(Calendar.MINUTE);
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day, hour, minute);
-        return new Task(newTaskTitle, newTaskDescription, mTaskState, calendar.getTime());
+        return new Task(newTaskTitle, newTaskDescription, mTaskState, calendar.getTime(), mUserRepository.getCurrentUser().getUserId());
     }
 
     private void onRadioButtonClicked() {

@@ -16,6 +16,7 @@ import com.example.task.adapter.TaskRecyclerViewAdapter;
 import com.example.task.enums.TaskState;
 import com.example.task.model.Task;
 import com.example.task.repository.TaskRepository;
+import com.example.task.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class TaskRecyclerViewFragment extends Fragment {
     private TaskState mTaskState;
     private ImageView mImageViewNoTask;
     private TaskRecyclerViewAdapter mTaskRecyclerViewAdapter;
+    private UserRepository mUserRepository;
 
 
     public TaskRecyclerViewFragment() {
@@ -45,6 +47,7 @@ public class TaskRecyclerViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTaskRepository = TaskRepository.getInstance();
+        mUserRepository = UserRepository.getInstance();
         assert getArguments() != null;
         mTaskState = (TaskState) getArguments().getSerializable(ARGS_TASK_STATE);
     }
@@ -85,7 +88,8 @@ public class TaskRecyclerViewFragment extends Fragment {
     private List<Task> setList() {
         List<Task> tasks = new ArrayList<>();
         for (int i = 0; i < mTaskRepository.getTasks().size(); i++) {
-            if (mTaskRepository.getTasks().get(i).getTaskState() == mTaskState)
+            if (mTaskRepository.getTasks().get(i).getTaskState() == mTaskState &&
+                    mTaskRepository.getTasks().get(i).getUserId() == mUserRepository.getCurrentUser().getUserId())
                 tasks.add(mTaskRepository.getTasks().get(i));
         }
         return tasks;
