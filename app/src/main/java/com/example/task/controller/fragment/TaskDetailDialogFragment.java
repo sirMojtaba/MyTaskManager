@@ -70,6 +70,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
         mTaskRepository = TaskRepository.getInstance();
         mGregorianCalendarDate = new GregorianCalendar();
         mGregorianCalendarTime = new GregorianCalendar();
+
     }
 
     @NonNull
@@ -80,6 +81,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
         findViews(view);
         setClickListeners();
         updateUi();
+        mEditTextTitle.setEnabled(false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder
@@ -93,6 +95,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
                 .setNeutralButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                     }
                 })
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -104,6 +107,13 @@ public class TaskDetailDialogFragment extends DialogFragment {
                 })
                 .setView(view);
         AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditTextTitle.setEnabled(true);
+            }
+        });
         return dialog;
     }
 

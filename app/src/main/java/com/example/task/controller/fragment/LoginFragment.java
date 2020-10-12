@@ -1,8 +1,11 @@
 package com.example.task.controller.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,7 +19,6 @@ import com.example.task.controller.activity.PagerActivity;
 import com.example.task.enums.TaskState;
 import com.example.task.model.Task;
 import com.example.task.model.User;
-import com.example.task.repository.TaskRepository;
 import com.example.task.repository.UserRepository;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,6 +33,7 @@ public class LoginFragment extends Fragment {
     private Button mButtonLogin;
     private Button mButtonSignUp;
     private UserRepository mUserRepository;
+    private LoginFragmentInterface mLoginFragmentInterface;
 
 
     public LoginFragment() {
@@ -79,12 +82,13 @@ public class LoginFragment extends Fragment {
                     String userName = mEditTextUserName.getText().toString();
                     int password = Integer.parseInt(mEditTextPassword.getText().toString());
                     User user = new User(userName, password);
-                    if (validationUser(user)) {
+                    if (isUserValid(user)) {
                         startPagerActivity();
                     } else
                         Snackbar.make(getView(), "No user found with this name! Sign up first.", Snackbar.LENGTH_LONG).show();
                 }
             }
+
         });
 
         mButtonSignUp.setOnClickListener(new View.OnClickListener() {
@@ -113,35 +117,34 @@ public class LoginFragment extends Fragment {
         startActivity(intent);
     }
 
-    private List<Task> buildTaskList() {
-        List<Task> taskList = new ArrayList<>();
-        for (int i = 0; i < Integer.parseInt(mEditTextPassword.getText().toString()); i++) {
-            Task task = new Task(mEditTextUserName.getText().toString(), getState());
-            taskList.add(task);
-        }
-        return taskList;
-    }
-
-    public static TaskState getState() {
-        int pick = new Random().nextInt(TaskState.values().length);
-        return TaskState.values()[pick];
-    }
-
-    private boolean validationUser(User user) {
+    private boolean isUserValid(User user) {
         for (int i = 0; i < mUserRepository.getUsers().size(); i++) {
             if (mUserRepository.getUsers().get(i).getUserName().equals(user.getUserName())
-                    && mUserRepository.getUsers().get(i).getPassword() == user.getPassword()){
+                    && mUserRepository.getUsers().get(i).getPassword() == user.getPassword()) {
                 mUserRepository.setCurrentUser(mUserRepository.getUsers().get(i));
                 return true;
             }
         }
         return false;
     }
+
     private boolean isUserExist(User user) {
         for (int i = 0; i < mUserRepository.getUsers().size(); i++) {
             if (mUserRepository.getUsers().get(i).getUserName().equals(user.getUserName()))
                 return true;
         }
         return false;
+    }
+
+    public interface LoginFragmentInterface {
+        void onAdminEntered();
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof LoginFragmentInterface)
+            mLoginFragmentInterface = (LoginFragmentInterface) context;
     }
 }

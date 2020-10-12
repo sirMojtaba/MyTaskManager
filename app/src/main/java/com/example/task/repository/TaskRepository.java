@@ -32,8 +32,13 @@ public class TaskRepository {
         mTasks.add(task);
     }
 
-    //delete
+    //delete one task
     public void removeTask(Task task) {
         mTasks.remove(task);
+    }
+
+    //delete all tasks
+    public void removeAllTasks() {
+        mTasks.clear();
     }
 }

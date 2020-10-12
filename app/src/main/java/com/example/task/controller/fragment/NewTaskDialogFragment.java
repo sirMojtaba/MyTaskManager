@@ -34,6 +34,8 @@ public class NewTaskDialogFragment extends DialogFragment {
     public static final String TIME_PICKER = "time picker";
     public static final int REQUEST_CODE_NEW_TASK_DATE_PICKER = 0;
     public static final int REQUEST_CODE_NEW_TASK_TIME_PICKER = 1;
+    public static final String BUNDLE_CALENDAR_DATE = "date";
+    private static final String BUNDLE_CALENDAR_TIME = "time";
     private EditText mEditTextTitle;
     private EditText mEditTextDescription;
     private Button mButtonDate;
@@ -45,6 +47,7 @@ public class NewTaskDialogFragment extends DialogFragment {
     private GregorianCalendar mGregorianCalendarTime;
     private GregorianCalendar mGregorianCalendarDate;
     private UserRepository mUserRepository;
+    private Calendar mCalendar;
 
     public NewTaskDialogFragment() {
         // Required empty public constructor
@@ -64,6 +67,10 @@ public class NewTaskDialogFragment extends DialogFragment {
         mUserRepository = UserRepository.getInstance();
         mGregorianCalendarDate = new GregorianCalendar();
         mGregorianCalendarTime = new GregorianCalendar();
+        if (savedInstanceState != null) {
+            mGregorianCalendarDate = (GregorianCalendar) savedInstanceState.getSerializable(BUNDLE_CALENDAR_DATE);
+            mGregorianCalendarTime = (GregorianCalendar) savedInstanceState.getSerializable(BUNDLE_CALENDAR_TIME);
+        }
     }
 
     @NonNull
@@ -75,8 +82,7 @@ public class NewTaskDialogFragment extends DialogFragment {
 
         findViews(view);
         setClickListeners();
-        mButtonDate.setText(DateTime.getDate(new Date()));
-        mButtonTime.setText(DateTime.getTime(new Date()));
+        setDateTimeButtonText();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("New task")
@@ -95,9 +101,25 @@ public class NewTaskDialogFragment extends DialogFragment {
         return dialog;
     }
 
+    private void setDateTimeButtonText() {
+        if (mGregorianCalendarDate == null) {
+            mButtonDate.setText(DateTime.getDate(new Date()));
+            mButtonTime.setText(DateTime.getTime(new Date()));
+        } else {
+            mButtonDate.setText(DateTime.getDate(mGregorianCalendarDate.getTime()));
+            mButtonTime.setText(DateTime.getTime(mGregorianCalendarTime.getTime()));
+        }
+    }
+
+
     private Task buildNewTask() {
         String newTaskTitle = mEditTextTitle.getText().toString();
         String newTaskDescription = mEditTextDescription.getText().toString();
+        mCalendar = setCalendar();
+        return new Task(newTaskTitle, newTaskDescription, mTaskState, mCalendar.getTime(), mUserRepository.getCurrentUser().getUserId());
+    }
+
+    private Calendar setCalendar() {
         int year = mGregorianCalendarDate.get(Calendar.YEAR);
         int month = mGregorianCalendarDate.get(Calendar.MONTH);
         int day = mGregorianCalendarDate.get(Calendar.DAY_OF_MONTH);
@@ -105,7 +127,7 @@ public class NewTaskDialogFragment extends DialogFragment {
         int minute = mGregorianCalendarTime.get(Calendar.MINUTE);
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day, hour, minute);
-        return new Task(newTaskTitle, newTaskDescription, mTaskState, calendar.getTime(), mUserRepository.getCurrentUser().getUserId());
+        return calendar;
     }
 
     private void onRadioButtonClicked() {
@@ -180,5 +202,12 @@ public class NewTaskDialogFragment extends DialogFragment {
             mGregorianCalendarTime.set(Calendar.HOUR_OF_DAY, userSelectedHour);
             mGregorianCalendarTime.set(Calendar.MINUTE, userSelectedMinute);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(BUNDLE_CALENDAR_DATE, mGregorianCalendarDate);
+        outState.putSerializable(BUNDLE_CALENDAR_TIME, mGregorianCalendarTime);
     }
 }

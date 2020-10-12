@@ -28,7 +28,7 @@ import java.util.List;
 
 public class TaskRecyclerViewFragment extends Fragment {
     public static final String ARGS_TASK_STATE = "task state arg";
-    public static final String TAG_RECYCLER_VIEW = "recyclerView";
+
     private RecyclerView mRecyclerView;
     private TaskRepository mTaskRepository;
     private TaskState mTaskState;
@@ -56,7 +56,6 @@ public class TaskRecyclerViewFragment extends Fragment {
         mUserRepository = UserRepository.getInstance();
         assert getArguments() != null;
         mTaskState = (TaskState) getArguments().getSerializable(ARGS_TASK_STATE);
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -69,23 +68,6 @@ public class TaskRecyclerViewFragment extends Fragment {
         showNoTaskImage();
         return view;
 
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.recycler_view_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case (R.id.menu_item_delete_all):
-                WarningDialogFragment warningDialogFragment = WarningDialogFragment.newInstance();
-                warningDialogFragment.show(getFragmentManager(), TAG_RECYCLER_VIEW);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void initRecyclerView() {
@@ -111,10 +93,16 @@ public class TaskRecyclerViewFragment extends Fragment {
 
     private List<Task> setList() {
         List<Task> tasks = new ArrayList<>();
+
         for (int i = 0; i < mTaskRepository.getTasks().size(); i++) {
-            if (mTaskRepository.getTasks().get(i).getTaskState() == mTaskState &&
-                    mTaskRepository.getTasks().get(i).getUserId() == mUserRepository.getCurrentUser().getUserId())
+            if (mUserRepository.getCurrentUser().getUserName().equals("admin") &&
+                    mTaskRepository.getTasks().get(i).getTaskState() == mTaskState)
                 tasks.add(mTaskRepository.getTasks().get(i));
+            else{
+                if (mTaskRepository.getTasks().get(i).getTaskState() == mTaskState &&
+                        mTaskRepository.getTasks().get(i).getUserId() == mUserRepository.getCurrentUser().getUserId())
+                    tasks.add(mTaskRepository.getTasks().get(i));
+            }
         }
         return tasks;
     }

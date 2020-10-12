@@ -2,6 +2,8 @@ package com.example.task.repository;
 
 import com.example.task.model.User;
 
+import org.xml.sax.helpers.XMLReaderAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +19,13 @@ public class UserRepository {
     }
 
     private UserRepository() {
+        User admin = new User("admin", 1234);
+        mUsers.add(admin);
     }
-
 
     private User mCurrentUser;
     List<User> mUsers = new ArrayList<>();
+
 
     public List<User> getUsers() {
         return mUsers;

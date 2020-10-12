@@ -57,20 +57,9 @@ public class Task implements Serializable {
         mDate = date;
     }
 
-
-    public Task(String title, String description, TaskState taskState, Date date) {
-        mTitle = title;
-        mDescription = description;
-        mTaskState = taskState;
-        mDate = date;
-    }
-
     public Task(String title, TaskState taskState) {
         mTitle = title;
         mTaskState = taskState;
-    }
-
-    public Task() {
     }
 
     public Task(String title, String description, TaskState taskState, Date date, UUID userId) {

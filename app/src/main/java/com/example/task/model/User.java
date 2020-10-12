@@ -1,12 +1,12 @@
 package com.example.task.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class User {
+public class User implements Serializable {
     private String mUserName;
     private int mPassword;
     private UUID mUserId;
-
 
     public UUID getUserId() {
         return mUserId;
@@ -30,11 +30,6 @@ public class User {
 
     public void setPassword(int password) {
         mPassword = password;
-    }
-
-    public User(String userName) {
-        mUserName = userName;
-        mUserId = UUID.randomUUID();
     }
 
     public User(String userName, int password) {

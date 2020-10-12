@@ -29,14 +29,6 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/text_view_row_state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_below="@id/text_view_row_date_time"
-        android:textColor="#000000"/>
-
-    <TextView
         android:id="@+id/text_view_row_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"

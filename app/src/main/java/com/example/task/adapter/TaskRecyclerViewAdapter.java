@@ -65,7 +65,6 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
     public class TaskViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextViewTitle;
         private TextView mTextViewDescription;
-        private TextView mTextViewState;
         private TextView mTextViewDateTime;
         private RelativeLayout mLayoutRow;
         private TextView mTextViewIcon;
@@ -75,7 +74,6 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
             mTextViewTitle = itemView.findViewById(R.id.text_view_row_name);
             mTextViewDescription = itemView.findViewById(R.id.text_view_row_description);
             mTextViewDateTime = itemView.findViewById(R.id.text_view_row_date_time);
-            mTextViewState = itemView.findViewById(R.id.text_view_row_state);
             mLayoutRow = itemView.findViewById(R.id.layout_row);
             mTextViewIcon = itemView.findViewById(R.id.text_view_row_icon);
             mLayoutRow.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +90,6 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
             mTextViewTitle.setText(task.getTitle());
             mTextViewDescription.setText(task.getDescription());
             mTextViewDateTime.setText(task.getDate().toString());
-            mTextViewState.setText(task.getTaskState().toString());
             if (task.getTitle().length() != 0)
                 mTextViewIcon.setText(task.getTitle().substring(0, 1));
         }

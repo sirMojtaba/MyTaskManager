@@ -1,23 +1,31 @@
 package com.example.task.controller.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskViewPagerAdapter;
+import com.example.task.controller.fragment.LoginFragment;
 import com.example.task.controller.fragment.NewTaskDialogFragment;
 import com.example.task.controller.fragment.TaskDetailDialogFragment;
 import com.example.task.controller.fragment.TaskRecyclerViewFragment;
+import com.example.task.controller.fragment.WarningDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class PagerActivity extends AppCompatActivity implements NewTaskDialogFragment.OnNewTaskListener, TaskDetailDialogFragment.TaskDetailInterface {
+public class PagerActivity extends AppCompatActivity implements NewTaskDialogFragment.OnNewTaskListener,
+        TaskDetailDialogFragment.TaskDetailInterface, WarningDialogFragment.WarningInterface, LoginFragment.LoginFragmentInterface {
     public static final String NEW_TASK_DIALOG_FRAGMENT = "task dialog fragment";
     public static final String TASK_DETAIL_DIALOG_FRAGMENT = "task detail dialog fragment";
+    public static final String TAG_RECYCLER_VIEW = "recyclerView";
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
     private FloatingActionButton mFloatingActionButton;
@@ -36,6 +44,7 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
                 (mTabLayout, position) -> mTabLayout.setText(setTabText(position))).attach();
 
         setClickListeners();
+
     }
 
     private void setViewPagerAdapter() {
@@ -88,6 +97,40 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
         for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
             if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
                 ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
+        }
+    }
+
+    @Override
+    public void onDeleteAll() {
+        for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
+            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
+                ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
+        }
+    }
+
+    @Override
+    public void onAdminEntered() {
+        for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
+            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
+                ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.recycler_view_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.menu_item_delete_all):
+                WarningDialogFragment warningDialogFragment = WarningDialogFragment.newInstance();
+                warningDialogFragment.show(getSupportFragmentManager(), TAG_RECYCLER_VIEW);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

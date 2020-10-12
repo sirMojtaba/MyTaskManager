@@ -56,4 +56,5 @@
         android:background="@drawable/gradient_button"
         android:text="@string/sign_up"
         android:textAllCaps="false"/>
+
 </LinearLayout>
