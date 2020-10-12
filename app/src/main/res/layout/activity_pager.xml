@@ -11,27 +11,47 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabGravity="fill"/>
+        app:tabMode="fixed"
+        app:tabGravity="fill" >
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_todo"
+            android:text="Tab2" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_doing"
+            android:text="Tab3"
+            android:textAlignment="textStart" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_done"
+            android:text="Tab4" />
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="48dp" />
+        android:layout_below="@+id/tab_layout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/gradient"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_add"
-        android:tint="#FFFFFF"
-        app:backgroundTint="#B34CC5" />
+        app:backgroundTint="#B34CC5"
+        app:tint="#FFFFFF"/>
 </RelativeLayout>

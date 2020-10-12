@@ -11,24 +11,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.task.R;
-import com.example.task.adapter.TaskRecyclerViewAdapter;
 import com.example.task.enums.TaskState;
 import com.example.task.model.Task;
 import com.example.task.repository.TaskRepository;
 import com.example.task.utils.DateTime;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -44,6 +40,9 @@ public class TaskDetailDialogFragment extends DialogFragment {
     private Button mButtonDate;
     private Button mButtonTime;
     private RadioGroup mRadioGroup;
+    private RadioButton mRadioButtonTodo;
+    private RadioButton mRadioButtonDoing;
+    private RadioButton mRadioButtonDone;
     private TaskState mTaskState;
     private Task mTask;
     private TaskRepository mTaskRepository;
@@ -81,7 +80,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
         findViews(view);
         setClickListeners();
         updateUi();
-        mEditTextTitle.setEnabled(false);
+        setViewDisabled();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder
@@ -111,10 +110,30 @@ public class TaskDetailDialogFragment extends DialogFragment {
         dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mEditTextTitle.setEnabled(true);
+                setViewEnabled();
             }
         });
         return dialog;
+    }
+
+    private void setViewEnabled() {
+        mEditTextTitle.setEnabled(true);
+        mEditTextDescription.setEnabled(true);
+        mButtonDate.setEnabled(true);
+        mButtonTime.setEnabled(true);
+        mRadioButtonTodo.setEnabled(true);
+        mRadioButtonDoing.setEnabled(true);
+        mRadioButtonDone.setEnabled(true);
+    }
+
+    private void setViewDisabled() {
+        mEditTextTitle.setEnabled(false);
+        mEditTextDescription.setEnabled(false);
+        mButtonDate.setEnabled(false);
+        mButtonTime.setEnabled(false);
+        mRadioButtonTodo.setEnabled(false);
+        mRadioButtonDoing.setEnabled(false);
+        mRadioButtonDone.setEnabled(false);
     }
 
     private void updateTask() {
@@ -143,6 +162,9 @@ public class TaskDetailDialogFragment extends DialogFragment {
         mButtonDate = view.findViewById(R.id.button_task_detail_date);
         mButtonTime = view.findViewById(R.id.button_task_detail_time);
         mRadioGroup = view.findViewById(R.id.radio_group_task_detail);
+        mRadioButtonTodo = view.findViewById(R.id.radio_button_task_detail_todo);
+        mRadioButtonDoing = view.findViewById(R.id.radio_button_task_detail_doing);
+        mRadioButtonDone = view.findViewById(R.id.radio_button_task_detail_done);
     }
 
     private void setClickListeners() {

@@ -5,6 +5,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="log_in">Log in</string>
     <string name="password">Password</string>
-    <string name="user_name">User name</string>
+    <string name="user_name">Username</string>
     <string name="todo">TODO</string>
+    <string name="add_task">Add Task</string>
+    <string name="delete_all">Delete All</string>
 </resources>

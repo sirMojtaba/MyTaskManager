@@ -17,12 +17,13 @@ import com.example.task.controller.fragment.NewTaskDialogFragment;
 import com.example.task.controller.fragment.TaskDetailDialogFragment;
 import com.example.task.controller.fragment.TaskRecyclerViewFragment;
 import com.example.task.controller.fragment.WarningDialogFragment;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class PagerActivity extends AppCompatActivity implements NewTaskDialogFragment.OnNewTaskListener,
-        TaskDetailDialogFragment.TaskDetailInterface, WarningDialogFragment.WarningInterface, LoginFragment.LoginFragmentInterface {
+        TaskDetailDialogFragment.TaskDetailInterface, WarningDialogFragment.WarningInterface {
     public static final String NEW_TASK_DIALOG_FRAGMENT = "task dialog fragment";
     public static final String TASK_DETAIL_DIALOG_FRAGMENT = "task detail dialog fragment";
     public static final String TAG_RECYCLER_VIEW = "recyclerView";
@@ -42,6 +43,10 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
 
         new TabLayoutMediator(mTabLayout, mViewPager,
                 (mTabLayout, position) -> mTabLayout.setText(setTabText(position))).attach();
+
+        mTabLayout.getTabAt(0).setIcon(R.drawable.ic_todo);
+        mTabLayout.getTabAt(1).setIcon(R.drawable.ic_doing);
+        mTabLayout.getTabAt(2).setIcon(R.drawable.ic_done);
 
         setClickListeners();
 
@@ -102,14 +107,6 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
 
     @Override
     public void onDeleteAll() {
-        for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
-            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
-                ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
-        }
-    }
-
-    @Override
-    public void onAdminEntered() {
         for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
             if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
                 ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();

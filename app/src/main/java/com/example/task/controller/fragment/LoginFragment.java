@@ -21,6 +21,8 @@ import com.example.task.model.Task;
 import com.example.task.model.User;
 import com.example.task.repository.UserRepository;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +31,10 @@ import java.util.Random;
 
 public class LoginFragment extends Fragment {
     private EditText mEditTextUserName;
-    private EditText mEditTextPassword;
+    private TextInputEditText mEditTextPassword;
     private Button mButtonLogin;
     private Button mButtonSignUp;
     private UserRepository mUserRepository;
-    private LoginFragmentInterface mLoginFragmentInterface;
-
 
     public LoginFragment() {
         // Required empty public constructor
@@ -61,6 +61,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login_page, container, false);
         findViews(view);
         setClickListeners();
+
         return view;
     }
 
@@ -78,6 +79,9 @@ public class LoginFragment extends Fragment {
                 if (mEditTextUserName.getText().length() == 0 || mEditTextPassword.getText().length() == 0)
                     Snackbar.make(getView(),
                             "Fill both of the blanks first!", Snackbar.LENGTH_LONG).show();
+                else if (mEditTextUserName.getText().length() > 20 || mEditTextPassword.getText().length() > 8)
+                    Snackbar.make(getView(),
+                            "The username or password characters are more than needed!", Snackbar.LENGTH_LONG).show();
                 else {
                     String userName = mEditTextUserName.getText().toString();
                     int password = Integer.parseInt(mEditTextPassword.getText().toString());
@@ -97,6 +101,9 @@ public class LoginFragment extends Fragment {
                 if (mEditTextUserName.getText().length() == 0 || mEditTextPassword.getText().length() == 0)
                     Snackbar.make(getView(),
                             "Fill both of the blanks first!", Snackbar.LENGTH_LONG).show();
+                else if (mEditTextUserName.getText().length() > 20 || mEditTextPassword.getText().length() > 8)
+                    Snackbar.make(getView(),
+                            "The username or password characters are more than needed!", Snackbar.LENGTH_LONG).show();
                 else {
                     String userName = mEditTextUserName.getText().toString();
                     int password = Integer.parseInt(mEditTextPassword.getText().toString());
@@ -134,17 +141,5 @@ public class LoginFragment extends Fragment {
                 return true;
         }
         return false;
-    }
-
-    public interface LoginFragmentInterface {
-        void onAdminEntered();
-
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof LoginFragmentInterface)
-            mLoginFragmentInterface = (LoginFragmentInterface) context;
     }
 }

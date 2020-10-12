@@ -22,6 +22,6 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/todo"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/hero" />
+        app:srcCompat="@drawable/notaskland2" />
 
 </RelativeLayout>
