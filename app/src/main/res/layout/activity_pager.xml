@@ -52,6 +52,6 @@
         android:background="@drawable/gradient"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add"
-        app:backgroundTint="#B34CC5"
+        app:backgroundTint="#673AB7"
         app:tint="#FFFFFF"/>
 </RelativeLayout>
