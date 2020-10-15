@@ -45,7 +45,7 @@
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/gradient_button"
+        android:background="@drawable/background_row_icon"
         android:gravity="center"
         android:textAllCaps="true"
         android:textColor="@color/cardview_light_background"

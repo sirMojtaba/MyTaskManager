@@ -1,11 +1,23 @@
 package com.example.task.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.UUID;
 
+@Entity(tableName = "user")
 public class User implements Serializable {
+
+    @ColumnInfo(name = "user_name")
     private String mUserName;
+
+    @ColumnInfo(name = "password")
     private int mPassword;
+
+    @PrimaryKey
+    @ColumnInfo(name = "user_id")
     private UUID mUserId;
 
     public UUID getUserId() {
