@@ -1,11 +1,14 @@
 package com.example.task.model;
 
+import androidx.room.Entity;
+
 import com.example.task.enums.TaskState;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+@Entity(tableName = "task")
 public class Task implements Serializable {
     private String mTitle;
     private String mDescription;

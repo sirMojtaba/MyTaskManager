@@ -16,8 +16,6 @@ public class User implements Serializable {
     @ColumnInfo(name = "password")
     private int mPassword;
 
-    @PrimaryKey
-    @ColumnInfo(name = "user_id")
     private UUID mUserId;
 
     public UUID getUserId() {
