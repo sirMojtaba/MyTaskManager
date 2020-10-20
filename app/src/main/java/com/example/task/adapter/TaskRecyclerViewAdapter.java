@@ -1,10 +1,12 @@
 package com.example.task.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.task.R;
 import com.example.task.controller.fragment.TaskDetailDialogFragment;
 import com.example.task.model.Task;
+import com.example.task.utils.DateTime;
 
 import java.util.List;
 
@@ -67,6 +70,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
         private TextView mTextViewDateTime;
         private RelativeLayout mLayoutRow;
         private TextView mTextViewIcon;
+        private ImageButton mImageButtonShare;
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,14 +79,40 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
             mTextViewDateTime = itemView.findViewById(R.id.text_view_row_date_time);
             mLayoutRow = itemView.findViewById(R.id.layout_row);
             mTextViewIcon = itemView.findViewById(R.id.text_view_row_icon);
+            mImageButtonShare = itemView.findViewById(R.id.image_button_share);
+
             mLayoutRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     TaskDetailDialogFragment taskDetailDialogFragment = TaskDetailDialogFragment.newInstance(mTaskList.get(getAdapterPosition()));
                     taskDetailDialogFragment.show(((AppCompatActivity) mActivity).getSupportFragmentManager(), TASK_DETAIL_DIALOG_FRAGMENT);
-
                 }
             });
+
+            mImageButtonShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, shareText());
+                    sendIntent.setType("text/plain");
+
+                    Intent shareIntent = Intent.createChooser(sendIntent, null);
+                    mActivity.startActivity(shareIntent);
+                }
+            });
+
+
+        }
+
+        private String shareText() {
+            String shareText =
+                    "Title: " + mTaskList.get(getAdapterPosition()).getTitle() + "\n" +
+                    "Description: " + mTaskList.get(getAdapterPosition()).getDescription() + "\n" +
+                    "Date: " + DateTime.getDate(mTaskList.get(getAdapterPosition()).getDate()) + "\n" +
+                    "Time: " + DateTime.getTime(mTaskList.get(getAdapterPosition()).getDate()) + "\n" +
+                    "State: " + mTaskList.get(getAdapterPosition()).getTaskState();
+            return shareText;
         }
 
         public void bindTask(Task task) {
