@@ -1,6 +1,8 @@
 package com.example.task.model;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import com.example.task.enums.TaskState;
 
@@ -13,8 +15,11 @@ public class Task implements Serializable {
     private String mTitle;
     private String mDescription;
     private TaskState mTaskState;
-    private Date mDate = new Date();
+    @Ignore
+    private Date mDate;
     private UUID mUserId;
+    @PrimaryKey
+    private int id;
 
     public UUID getUserId() {
         return mUserId;
@@ -40,9 +45,6 @@ public class Task implements Serializable {
         mTitle = title;
     }
 
-    public Task(String title) {
-        mTitle = title;
-    }
 
     public String getDescription() {
         return mDescription;
@@ -57,12 +59,15 @@ public class Task implements Serializable {
     }
 
     public void setDate(Date date) {
-        mDate = date;
+        this.mDate = date;
     }
 
-    public Task(String title, TaskState taskState) {
-        mTitle = title;
-        mTaskState = taskState;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Task(String title, String description, TaskState taskState, Date date, UUID userId) {
@@ -71,5 +76,8 @@ public class Task implements Serializable {
         mTaskState = taskState;
         mDate = date;
         mUserId = userId;
+    }
+
+    public Task() {
     }
 }

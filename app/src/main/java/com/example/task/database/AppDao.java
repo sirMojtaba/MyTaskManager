@@ -1,4 +1,4 @@
-package com.example.task.model;
+package com.example.task.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,10 +6,13 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.task.model.Task;
+import com.example.task.model.User;
+
 import java.util.List;
 
-@Dao
-public interface DBDao {
+@androidx.room.Dao
+public interface AppDao {
 
     @Query("Select * from user")
     List<User> getUserList();

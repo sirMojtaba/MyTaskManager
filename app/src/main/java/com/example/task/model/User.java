@@ -10,13 +10,11 @@ import java.util.UUID;
 @Entity(tableName = "user")
 public class User implements Serializable {
 
-    @ColumnInfo(name = "user_name")
     private String mUserName;
-
-    @ColumnInfo(name = "password")
     private int mPassword;
-
     private UUID mUserId;
+    @PrimaryKey
+    private int id;
 
     public UUID getUserId() {
         return mUserId;
@@ -40,6 +38,14 @@ public class User implements Serializable {
 
     public void setPassword(int password) {
         mPassword = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public User(String userName, int password) {

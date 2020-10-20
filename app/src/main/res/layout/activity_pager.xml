@@ -49,9 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/gradient"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add"
-        app:backgroundTint="#673AB7"
+        app:backgroundTint="#B0279E"
         app:tint="#FFFFFF"/>
 </RelativeLayout>

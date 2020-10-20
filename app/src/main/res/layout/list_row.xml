@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_row"
     android:layout_width="match_parent"
@@ -11,11 +12,12 @@
         android:id="@+id/text_view_row_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/text_view_row_icon"
-        android:textSize="20sp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="-8dp"
+        android:layout_toStartOf="@+id/button"
+        android:layout_toEndOf="@+id/text_view_row_icon"
+        android:text="TextView"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
@@ -23,10 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_row_name"
-        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="-8dp"
+        android:layout_toStartOf="@+id/button"
         android:layout_toEndOf="@+id/text_view_row_icon"
         android:text="TextView"
-        android:layout_marginStart="8dp"
         android:textSize="16sp" />
 
     <TextView
@@ -35,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_row_description"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/text_view_row_icon"
         android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/text_view_row_icon"
         android:text="TextView" />
 
     <TextView
@@ -51,5 +54,18 @@
         android:textColor="@color/cardview_light_background"
         android:textSize="36sp"
         tools:text="Q" />
+
+    <ImageButton
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@null"
+        app:srcCompat="@drawable/ic_share" />
 
 </RelativeLayout>
