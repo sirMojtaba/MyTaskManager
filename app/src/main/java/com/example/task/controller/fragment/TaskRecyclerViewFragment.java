@@ -52,8 +52,8 @@ public class TaskRecyclerViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTaskRepository = TaskRepository.getInstance();
-        mUserRepository = UserRepository.getInstance();
+        mTaskRepository = TaskRepository.getInstance(getActivity());
+        mUserRepository = UserRepository.getInstance(getActivity());
         assert getArguments() != null;
         mTaskState = (TaskState) getArguments().getSerializable(ARGS_TASK_STATE);
     }
@@ -70,15 +70,15 @@ public class TaskRecyclerViewFragment extends Fragment {
 
     }
 
+    private void findViews(View view) {
+        mImageViewNoTask = view.findViewById(R.id.image_view_no_task);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+    }
+
     private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mTaskRecyclerViewAdapter = new TaskRecyclerViewAdapter(setList(), getActivity());
         mRecyclerView.setAdapter(mTaskRecyclerViewAdapter);
-    }
-
-    private void findViews(View view) {
-        mImageViewNoTask = view.findViewById(R.id.image_view_no_task);
-        mRecyclerView = view.findViewById(R.id.recycler_view);
     }
 
     private void showNoTaskImage() {
@@ -92,19 +92,21 @@ public class TaskRecyclerViewFragment extends Fragment {
     }
 
     private List<Task> setList() {
-        List<Task> tasks = new ArrayList<>();
+        List<Task> taskList = new ArrayList<>();
 
         for (int i = 0; i < mTaskRepository.getTasks().size(); i++) {
             if (mUserRepository.getCurrentUser().getUserName().equals("admin") &&
                     mTaskRepository.getTasks().get(i).getTaskState() == mTaskState)
-                tasks.add(mTaskRepository.getTasks().get(i));
-            else{
+                taskList.add(mTaskRepository.getTasks().get(i));
+//                mTaskRepository.addTask(mTaskRepository.getTasks().get(i));
+            else {
                 if (mTaskRepository.getTasks().get(i).getTaskState() == mTaskState &&
                         mTaskRepository.getTasks().get(i).getUserId() == mUserRepository.getCurrentUser().getUserId())
-                    tasks.add(mTaskRepository.getTasks().get(i));
+                    taskList.add(mTaskRepository.getTasks().get(i));
+//                    mTaskRepository.addTask(mTaskRepository.getTasks().get(i));
             }
         }
-        return tasks;
+        return taskList;
     }
 
     public void updateUI() {

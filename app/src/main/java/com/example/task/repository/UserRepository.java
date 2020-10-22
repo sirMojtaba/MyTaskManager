@@ -1,5 +1,10 @@
 package com.example.task.repository;
 
+import android.content.Context;
+
+import androidx.room.Room;
+
+import com.example.task.database.AppDatabase;
 import com.example.task.model.User;
 
 import org.xml.sax.helpers.XMLReaderAdapter;
@@ -8,31 +13,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
-
-
     private static UserRepository sUserRepository;
+    private static Context mContext;
+    private User mCurrentUser;
 
-    public static UserRepository getInstance() {
+    public static UserRepository getInstance(Context context) {
+        mContext = context;
         if (sUserRepository == null)
             sUserRepository = new UserRepository();
         return sUserRepository;
     }
 
+    AppDatabase db =
+            Room.databaseBuilder(mContext.getApplicationContext(), AppDatabase.class, "database-name")
+                    .allowMainThreadQueries()
+                    .build();
+
+
     private UserRepository() {
         User admin = new User("admin", 1234);
-        mUsers.add(admin);
+        db.appDao().insertUser(admin);
     }
-
-    private User mCurrentUser;
-    List<User> mUsers = new ArrayList<>();
 
 
     public List<User> getUsers() {
-        return mUsers;
+        return db.appDao().getUserList();
     }
 
-    public void setUsers(List<User> users) {
-        mUsers = users;
+    public void addUser(User user) {
+        db.appDao().insertUser(user);
     }
 
     public User getCurrentUser() {
@@ -43,7 +52,4 @@ public class UserRepository {
         mCurrentUser = currentUser;
     }
 
-    public void addUser(User user){
-        mUsers.add(user);
-    }
 }

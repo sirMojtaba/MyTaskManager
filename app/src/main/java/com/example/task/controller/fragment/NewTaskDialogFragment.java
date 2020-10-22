@@ -63,8 +63,8 @@ public class NewTaskDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTaskRepository = TaskRepository.getInstance();
-        mUserRepository = UserRepository.getInstance();
+        mTaskRepository = TaskRepository.getInstance(getActivity());
+        mUserRepository = UserRepository.getInstance(getActivity());
         mGregorianCalendarDate = new GregorianCalendar();
         mGregorianCalendarTime = new GregorianCalendar();
         if (savedInstanceState != null) {

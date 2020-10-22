@@ -1,10 +1,10 @@
 package com.example.task.model;
 
+import com.example.task.enums.TaskState;
+
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import com.example.task.enums.TaskState;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,10 +15,9 @@ public class Task implements Serializable {
     private String mTitle;
     private String mDescription;
     private TaskState mTaskState;
-    @Ignore
     private Date mDate;
     private UUID mUserId;
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     public UUID getUserId() {
@@ -78,6 +77,7 @@ public class Task implements Serializable {
         mUserId = userId;
     }
 
+    @Ignore
     public Task() {
     }
 }

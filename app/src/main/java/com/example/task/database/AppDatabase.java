@@ -10,12 +10,11 @@ import androidx.room.TypeConverters;
 import com.example.task.model.Task;
 import com.example.task.model.User;
 
-@TypeConverters({Converters.class})
 @Database(entities = {User.class, Task.class}, exportSchema = false, version = 1)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
-    private static final String DB_NAME = "app_db";
+    private static final String DB_NAME = "app-db";
     private static AppDatabase instance;
-
     public abstract AppDao appDao();
 
     public static AppDatabase getInstance(Context context) {

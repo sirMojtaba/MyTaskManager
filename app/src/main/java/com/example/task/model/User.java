@@ -13,7 +13,7 @@ public class User implements Serializable {
     private String mUserName;
     private int mPassword;
     private UUID mUserId;
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     public UUID getUserId() {

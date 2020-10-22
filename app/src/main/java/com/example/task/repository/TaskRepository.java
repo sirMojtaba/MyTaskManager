@@ -1,5 +1,10 @@
 package com.example.task.repository;
 
+import android.content.Context;
+
+import androidx.room.Room;
+
+import com.example.task.database.AppDatabase;
 import com.example.task.model.Task;
 
 import java.util.ArrayList;
@@ -7,38 +12,37 @@ import java.util.List;
 
 public class TaskRepository {
     private static TaskRepository sTaskRepository;
+    private static Context mContext;
 
-    public static TaskRepository getInstance() {
+    public static TaskRepository getInstance(Context context) {
+        mContext = context;
         if (sTaskRepository == null)
             sTaskRepository = new TaskRepository();
         return sTaskRepository;
     }
 
-    private List<Task> mTasks = new ArrayList<>();
+    AppDatabase db =
+            Room.databaseBuilder(mContext.getApplicationContext(),
+            AppDatabase.class, "database-name")
+                    .allowMainThreadQueries()
+                    .build();
+
 
     private TaskRepository() {
     }
 
     public List<Task> getTasks() {
-        return mTasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        mTasks = tasks;
+        return db.appDao().getTaskList();
     }
 
     //create
     public void addTask(Task task) {
-        mTasks.add(task);
+        db.appDao().insertTask(task);
     }
 
     //delete one task
     public void removeTask(Task task) {
-        mTasks.remove(task);
+        db.appDao().deleteTask(task);
     }
 
-    //delete all tasks
-    public void removeAllTasks() {
-        mTasks.clear();
-    }
 }

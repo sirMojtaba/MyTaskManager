@@ -40,8 +40,8 @@ public class WarningDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTaskRepository = TaskRepository.getInstance();
-        mUserRepository = UserRepository.getInstance();
+        mTaskRepository = TaskRepository.getInstance(getActivity());
+        mUserRepository = UserRepository.getInstance(getActivity());
 
     }
 

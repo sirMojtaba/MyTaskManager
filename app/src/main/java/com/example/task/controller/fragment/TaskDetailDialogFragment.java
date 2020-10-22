@@ -66,7 +66,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTask = (Task) getArguments().getSerializable(TASK_SELECTED);
-        mTaskRepository = TaskRepository.getInstance();
+        mTaskRepository = TaskRepository.getInstance(getActivity());
         mGregorianCalendarDate = new GregorianCalendar();
         mGregorianCalendarTime = new GregorianCalendar();
 

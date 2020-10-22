@@ -11,7 +11,7 @@ import com.example.task.model.User;
 
 import java.util.List;
 
-@androidx.room.Dao
+@Dao
 public interface AppDao {
 
     @Query("Select * from user")
@@ -37,5 +37,4 @@ public interface AppDao {
 
     @Delete(entity = Task.class)
     void deleteTask(Task task);
-
 }
