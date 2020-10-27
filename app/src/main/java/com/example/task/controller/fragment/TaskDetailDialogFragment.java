@@ -24,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -62,7 +61,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
     private RadioButton mRadioButtonTodo;
     private RadioButton mRadioButtonDoing;
     private RadioButton mRadioButtonDone;
-    private ImageButton mImageButtonCapture;
+    private Button mButtonCapture;
     private ImageView mImageViewTaskPicture;
     private File mPhotoFile;
     private TaskState mTaskState;
@@ -104,8 +103,8 @@ public class TaskDetailDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_task_detail_dialog, null);
         findViews(view);
         setClickListeners();
-        setViewDisabled();
         updateUi();
+        setViewDisabled();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Task details")
@@ -130,6 +129,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
                     }
                 })
                 .setView(view);
+
         AlertDialog dialog = builder.create();
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
@@ -150,7 +150,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
         mRadioButtonTodo = view.findViewById(R.id.radio_button_task_detail_todo);
         mRadioButtonDoing = view.findViewById(R.id.radio_button_task_detail_doing);
         mRadioButtonDone = view.findViewById(R.id.radio_button_task_detail_done);
-        mImageButtonCapture = view.findViewById(R.id.image_button_camera);
+        mButtonCapture = view.findViewById(R.id.image_button_camera);
         mImageViewTaskPicture = view.findViewById(R.id.image_view_task_image);
     }
 
@@ -162,7 +162,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
         mRadioButtonTodo.setEnabled(true);
         mRadioButtonDoing.setEnabled(true);
         mRadioButtonDone.setEnabled(true);
-        mImageButtonCapture.setEnabled(true);
+        mButtonCapture.setEnabled(true);
     }
 
     private void setViewDisabled() {
@@ -173,7 +173,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
         mRadioButtonTodo.setEnabled(false);
         mRadioButtonDoing.setEnabled(false);
         mRadioButtonDone.setEnabled(false);
-        mImageButtonCapture.setEnabled(false);
+        mButtonCapture.setEnabled(false);
     }
 
     private void updateTask() {
@@ -216,7 +216,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
             }
         });
 
-        mImageButtonCapture.setOnClickListener(new View.OnClickListener() {
+        mButtonCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
