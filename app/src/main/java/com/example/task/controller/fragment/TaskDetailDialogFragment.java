@@ -338,7 +338,10 @@ public class TaskDetailDialogFragment extends DialogFragment {
 
     private void updatePhotoView() {
         if (mPhotoFile == null || !mPhotoFile.exists()) {
-            mImageViewTaskPicture.setImageDrawable(ResourcesCompat.getDrawable(getActivity().getResources(), R.drawable.ic_user, getActivity().getTheme()));
+            mImageViewTaskPicture.setImageDrawable(ResourcesCompat.getDrawable(getActivity().getResources(),
+                    R.drawable.no_image_icon_23494,
+                    getActivity().getTheme()));
+
         } else {
             mBitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
             mImageViewTaskPicture.setImageBitmap(mBitmap);
