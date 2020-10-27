@@ -1,5 +1,7 @@
 package com.example.task.model;
 
+import android.content.Context;
+
 import com.example.task.enums.TaskState;
 
 import androidx.room.Entity;
@@ -7,6 +9,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -79,5 +82,9 @@ public class Task implements Serializable {
 
     @Ignore
     public Task() {
+    }
+
+    public String getPhotoFileName(){
+        return  "IMG_" + id + ".jpg";
     }
 }

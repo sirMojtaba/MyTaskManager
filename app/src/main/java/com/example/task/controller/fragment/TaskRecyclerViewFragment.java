@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +29,7 @@ import java.util.List;
 
 public class TaskRecyclerViewFragment extends Fragment {
     public static final String ARGS_TASK_STATE = "task state arg";
+    public static final String TAG = "tag";
 
     private RecyclerView mRecyclerView;
     private TaskRepository mTaskRepository;
@@ -96,15 +98,23 @@ public class TaskRecyclerViewFragment extends Fragment {
 
         for (int i = 0; i < mTaskRepository.getTasks().size(); i++) {
             if (mUserRepository.getCurrentUser().getUserName().equals("admin") &&
-                    mTaskRepository.getTasks().get(i).getTaskState() == mTaskState)
+                    mTaskRepository.getTasks().get(i).getTaskState() == mTaskState) {
                 taskList.add(mTaskRepository.getTasks().get(i));
-//                mTaskRepository.addTask(mTaskRepository.getTasks().get(i));
-            else {
-                if (mTaskRepository.getTasks().get(i).getTaskState() == mTaskState &&
-                        mTaskRepository.getTasks().get(i).getUserId() == mUserRepository.getCurrentUser().getUserId())
-                    taskList.add(mTaskRepository.getTasks().get(i));
-//                    mTaskRepository.addTask(mTaskRepository.getTasks().get(i));
+                Log.d(TAG, "setList: admin");
             }
+            else {
+                Task task = mTaskRepository.getTasks().get(i);
+                Log.d(TAG, "setList: no admin");
+                Log.d(TAG, "setList: " + task.getTitle() +
+                        " " + task.getUserId() + "  State : " + task.getTaskState());
+                Log.d(TAG, "setList: " + mUserRepository.getCurrentUser().getUserId());
+                if (mTaskRepository.getTasks().get(i).getTaskState().equals(mTaskState) &&
+                        mTaskRepository.getTasks().get(i).getUserId() .equals(mUserRepository.getCurrentUser().getUserId())) {
+                    taskList.add(mTaskRepository.getTasks().get(i));
+                    Log.d(TAG, "setList: 2");
+                }
+            }
+
         }
         return taskList;
     }
@@ -113,9 +123,13 @@ public class TaskRecyclerViewFragment extends Fragment {
         if (mTaskRecyclerViewAdapter == null) {
             mTaskRecyclerViewAdapter = new TaskRecyclerViewAdapter(setList(), getActivity());
             mRecyclerView.setAdapter(mTaskRecyclerViewAdapter);
+
+            
         } else {
             mTaskRecyclerViewAdapter.setTaskList(setList());
             mTaskRecyclerViewAdapter.notifyDataSetChanged();
+            Log.d(TAG, "updateUI: " + setList().size());
+
         }
         showNoTaskImage();
     }

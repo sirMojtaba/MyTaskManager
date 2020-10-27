@@ -1,5 +1,7 @@
 package com.example.task.database;
 
+import android.content.Context;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -9,6 +11,7 @@ import androidx.room.Update;
 import com.example.task.model.Task;
 import com.example.task.model.User;
 
+import java.io.File;
 import java.util.List;
 
 @Dao
@@ -34,7 +37,9 @@ public interface AppDao {
 
     @Update(entity = Task.class)
     void updateTask(Task task);
+//    File getPhotoFile(Context context, Task task);
 
     @Delete(entity = Task.class)
     void deleteTask(Task task);
+
 }

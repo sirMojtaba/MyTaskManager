@@ -13,16 +13,6 @@ import com.example.task.model.User;
 @Database(entities = {User.class, Task.class}, exportSchema = false, version = 1)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
-    private static final String DB_NAME = "app-db";
-    private static AppDatabase instance;
     public abstract AppDao appDao();
 
-    public static AppDatabase getInstance(Context context) {
-        if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DB_NAME)
-                    .allowMainThreadQueries()
-                    .build();
-        }
-        return instance;
-    }
 }

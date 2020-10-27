@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,6 +50,8 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
         mTabLayout.getTabAt(2).setIcon(R.drawable.ic_done);
 
         setClickListeners();
+
+
 
     }
 

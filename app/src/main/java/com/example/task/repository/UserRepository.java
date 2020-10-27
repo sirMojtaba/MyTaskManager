@@ -18,21 +18,23 @@ public class UserRepository {
     private User mCurrentUser;
 
     public static UserRepository getInstance(Context context) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         if (sUserRepository == null)
             sUserRepository = new UserRepository();
         return sUserRepository;
     }
 
     AppDatabase db =
-            Room.databaseBuilder(mContext.getApplicationContext(), AppDatabase.class, "database-name")
+            Room.databaseBuilder(mContext, AppDatabase.class, "database-name")
                     .allowMainThreadQueries()
                     .build();
 
 
     private UserRepository() {
-        User admin = new User("admin", 1234);
-        db.appDao().insertUser(admin);
+        if (getUsers().size() == 0) {
+            User admin = new User("admin", 1234);
+            db.appDao().insertUser(admin);
+        }
     }
 
 
