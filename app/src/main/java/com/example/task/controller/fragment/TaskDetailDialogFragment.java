@@ -28,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.task.R;
 import com.example.task.enums.TaskState;
@@ -52,6 +53,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
     public static final int REQUEST_CODE_TASK_DETAIL_TIME_PICKER = 1;
     public static final int REQUEST_IMAGE_CAPTURE = 2;
     public static final String FILE_PROVIDER_AUTHORITY = "com.example.task.fileprovider";
+    public static final String TASK_FULL_SIZE_IMAGE = "task_full_size_image";
     private EditText mEditTextTitle;
     private EditText mEditTextDescription;
     private Button mButtonDate;
@@ -243,6 +245,12 @@ public class TaskDetailDialogFragment extends DialogFragment {
         mImageViewTaskPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mBitmap == null)
+                    Toast.makeText(getActivity(), "There's no image for this task to show.", Toast.LENGTH_SHORT).show();
+                else {
+                    TaskImageDialogFragment taskImageDialogFragment = TaskImageDialogFragment.newInstance(mBitmap);
+                    taskImageDialogFragment.show(getFragmentManager(), TASK_FULL_SIZE_IMAGE);
+                }
 
             }
         });
