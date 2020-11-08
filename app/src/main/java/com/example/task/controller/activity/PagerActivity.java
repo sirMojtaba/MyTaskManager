@@ -48,11 +48,15 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
         new TabLayoutMediator(mTabLayout, mViewPager,
                 (mTabLayout, position) -> mTabLayout.setText(setTabText(position))).attach();
 
+        setTabsIcons();
+
+        setClickListeners();
+    }
+
+    private void setTabsIcons() {
         mTabLayout.getTabAt(0).setIcon(R.drawable.ic_todo);
         mTabLayout.getTabAt(1).setIcon(R.drawable.ic_doing);
         mTabLayout.getTabAt(2).setIcon(R.drawable.ic_done);
-
-        setClickListeners();
     }
 
     private void initView() {

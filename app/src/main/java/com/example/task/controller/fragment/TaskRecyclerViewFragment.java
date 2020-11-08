@@ -2,20 +2,15 @@ package com.example.task.controller.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskRecyclerViewAdapter;
@@ -95,18 +90,18 @@ public class TaskRecyclerViewFragment extends Fragment {
     private List<Task> setList() {
         List<Task> taskList = new ArrayList<>();
 
-        for (int i = 0; i < mTaskRepository.getTasks().size(); i++) {
+        for (int i = 0; i < mTaskRepository.getTaskList().size(); i++) {
             if (mUserRepository.getCurrentUser().getUserName().equals("admin") &&
-                    mTaskRepository.getTasks().get(i).getTaskState() == mTaskState) {
-                taskList.add(mTaskRepository.getTasks().get(i));
+                    mTaskRepository.getTaskList().get(i).getTaskState() == mTaskState) {
+                taskList.add(mTaskRepository.getTaskList().get(i));
             } else {
-                Task task = mTaskRepository.getTasks().get(i);
+                Task task = mTaskRepository.getTaskList().get(i);
                 Log.d(TAG, "setList: no admin");
                 Log.d(TAG, "setList: " + task.getTitle() +
                         " " + task.getUserId() + "  State : " + task.getTaskState());
-                if (mTaskRepository.getTasks().get(i).getTaskState().equals(mTaskState) &&
-                        mTaskRepository.getTasks().get(i).getUserId().equals(mUserRepository.getCurrentUser().getUserId())) {
-                    taskList.add(mTaskRepository.getTasks().get(i));
+                if (mTaskRepository.getTaskList().get(i).getTaskState().equals(mTaskState) &&
+                        mTaskRepository.getTaskList().get(i).getUserId().equals(mUserRepository.getCurrentUser().getUserId())) {
+                    taskList.add(mTaskRepository.getTaskList().get(i));
                 }
             }
         }

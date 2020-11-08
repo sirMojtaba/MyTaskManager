@@ -31,7 +31,7 @@ public class TaskRepository {
     private TaskRepository() {
     }
 
-    public List<Task> getTasks() {
+    public List<Task> getTaskList() {
         return db.appDao().getTaskList();
     }
 

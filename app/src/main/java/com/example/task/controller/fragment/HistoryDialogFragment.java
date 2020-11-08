@@ -7,15 +7,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.task.R;
-import com.example.task.database.AppDatabase;
+import com.example.task.model.User;
+import com.example.task.repository.TaskRepository;
 import com.example.task.repository.UserRepository;
 
 
@@ -24,6 +23,7 @@ public class HistoryDialogFragment extends DialogFragment {
     private TextView mTextViewHistory;
     //    private AppDatabase db;
     private UserRepository mUserRepository;
+    private TaskRepository mTaskRepository;
 
     public HistoryDialogFragment() {
         // Required empty public constructor
@@ -43,6 +43,7 @@ public class HistoryDialogFragment extends DialogFragment {
                 .allowMainThreadQueries()
                 .build();*/
         mUserRepository = UserRepository.getInstance(getActivity());
+        mTaskRepository = TaskRepository.getInstance(getActivity());
     }
 
     @NonNull
@@ -67,14 +68,23 @@ public class HistoryDialogFragment extends DialogFragment {
         mTextViewHistory = view.findViewById(R.id.text_view_history);
     }
 
-    String list;
 
     private String getUsersHistory() {
-        for (int i = 1; i < mUserRepository.getUsers().size(); i++) {
-            list = list + "User " + i + ": " + mUserRepository.getUsers().get(i).getUserName() + "\n";
+        String list = "";
+        for (int i = 1; i < mUserRepository.getUserList().size(); i++) {
+            list = list + "User " + i + ": " + mUserRepository.getUserList().get(i).getUserName()
+                    + "\n" + "Number of tasks: " + numberOfUserTasks(mUserRepository.getUserList().get(i))
+                    + "\n" + "\n";
         }
         return list;
     }
 
-
+    private int numberOfUserTasks(User user) {
+        int count = 0;
+        for (int i = 0; i < mTaskRepository.getTaskList().size(); i++) {
+            if (mTaskRepository.getTaskList().get(i).getUserId().equals(user.getUserId()))
+                count++;
+        }
+        return count;
+    }
 }

@@ -7,9 +7,6 @@ import androidx.room.Room;
 import com.example.task.database.AppDatabase;
 import com.example.task.model.User;
 
-import org.xml.sax.helpers.XMLReaderAdapter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
@@ -31,14 +28,14 @@ public class UserRepository {
 
 
     private UserRepository() {
-        if (getUsers().size() == 0) {
+        if (getUserList().size() == 0) {
             User admin = new User("admin", 1234);
             db.appDao().insertUser(admin);
         }
     }
 
 
-    public List<User> getUsers() {
+    public List<User> getUserList() {
         return db.appDao().getUserList();
     }
 

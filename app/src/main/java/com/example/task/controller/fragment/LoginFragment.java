@@ -114,10 +114,10 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean isUserValid(User user) {
-        for (int i = 0; i < mUserRepository.getUsers().size(); i++) {
-            if (mUserRepository.getUsers().get(i).getUserName().equals(user.getUserName())
-                    && mUserRepository.getUsers().get(i).getPassword() == user.getPassword()) {
-                mUserRepository.setCurrentUser(mUserRepository.getUsers().get(i));
+        for (int i = 0; i < mUserRepository.getUserList().size(); i++) {
+            if (mUserRepository.getUserList().get(i).getUserName().equals(user.getUserName())
+                    && mUserRepository.getUserList().get(i).getPassword() == user.getPassword()) {
+                mUserRepository.setCurrentUser(mUserRepository.getUserList().get(i));
                 return true;
             }
         }
@@ -125,8 +125,8 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean isUserExist(User user) {
-        for (int i = 0; i < mUserRepository.getUsers().size(); i++) {
-            if (mUserRepository.getUsers().get(i).getUserName().equals(user.getUserName()))
+        for (int i = 0; i < mUserRepository.getUserList().size(); i++) {
+            if (mUserRepository.getUserList().get(i).getUserName().equals(user.getUserName()))
                 return true;
         }
         return false;

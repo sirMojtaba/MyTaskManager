@@ -9,13 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.task.R;
 import com.example.task.repository.TaskRepository;
 import com.example.task.repository.UserRepository;
 
@@ -54,12 +48,12 @@ public class WarningDialogFragment extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        for (int i = 0; i < mTaskRepository.getTasks().size(); i++) {
+                        for (int i = 0; i < mTaskRepository.getTaskList().size(); i++) {
                             if (mUserRepository.getCurrentUser().getUserName().equals("admin"))
-                                mTaskRepository.removeTask(mTaskRepository.getTasks().get(i--));
+                                mTaskRepository.removeTask(mTaskRepository.getTaskList().get(i--));
                             else {
-                                if (mTaskRepository.getTasks().get(i).getUserId() == mUserRepository.getCurrentUser().getUserId())
-                                    mTaskRepository.removeTask(mTaskRepository.getTasks().get(i--));
+                                if (mTaskRepository.getTaskList().get(i).getUserId() == mUserRepository.getCurrentUser().getUserId())
+                                    mTaskRepository.removeTask(mTaskRepository.getTaskList().get(i--));
                             }
                         }
                         mWarningInterface.onDeleteAll();

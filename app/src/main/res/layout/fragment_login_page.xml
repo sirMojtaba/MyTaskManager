@@ -64,4 +64,12 @@
         android:text="@string/sign_up"
         android:textAllCaps="false"/>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Don't have an account?"
+        android:textAllCaps="false"/>
+
 </LinearLayout>
