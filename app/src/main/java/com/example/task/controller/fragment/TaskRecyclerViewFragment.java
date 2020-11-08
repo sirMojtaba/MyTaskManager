@@ -69,7 +69,6 @@ public class TaskRecyclerViewFragment extends Fragment {
         initRecyclerView();
         showNoTaskImage();
         return view;
-
     }
 
     private void findViews(View view) {
@@ -100,21 +99,16 @@ public class TaskRecyclerViewFragment extends Fragment {
             if (mUserRepository.getCurrentUser().getUserName().equals("admin") &&
                     mTaskRepository.getTasks().get(i).getTaskState() == mTaskState) {
                 taskList.add(mTaskRepository.getTasks().get(i));
-                Log.d(TAG, "setList: admin");
-            }
-            else {
+            } else {
                 Task task = mTaskRepository.getTasks().get(i);
                 Log.d(TAG, "setList: no admin");
                 Log.d(TAG, "setList: " + task.getTitle() +
                         " " + task.getUserId() + "  State : " + task.getTaskState());
-                Log.d(TAG, "setList: " + mUserRepository.getCurrentUser().getUserId());
                 if (mTaskRepository.getTasks().get(i).getTaskState().equals(mTaskState) &&
-                        mTaskRepository.getTasks().get(i).getUserId() .equals(mUserRepository.getCurrentUser().getUserId())) {
+                        mTaskRepository.getTasks().get(i).getUserId().equals(mUserRepository.getCurrentUser().getUserId())) {
                     taskList.add(mTaskRepository.getTasks().get(i));
-                    Log.d(TAG, "setList: 2");
                 }
             }
-
         }
         return taskList;
     }
@@ -123,13 +117,9 @@ public class TaskRecyclerViewFragment extends Fragment {
         if (mTaskRecyclerViewAdapter == null) {
             mTaskRecyclerViewAdapter = new TaskRecyclerViewAdapter(setList(), getActivity());
             mRecyclerView.setAdapter(mTaskRecyclerViewAdapter);
-
-            
         } else {
             mTaskRecyclerViewAdapter.setTaskList(setList());
             mTaskRecyclerViewAdapter.notifyDataSetChanged();
-            Log.d(TAG, "updateUI: " + setList().size());
-
         }
         showNoTaskImage();
     }

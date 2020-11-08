@@ -5,20 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.task.R;
 import com.example.task.adapter.TaskViewPagerAdapter;
-import com.example.task.controller.fragment.LoginFragment;
+import com.example.task.controller.fragment.HistoryDialogFragment;
 import com.example.task.controller.fragment.NewTaskDialogFragment;
 import com.example.task.controller.fragment.TaskDetailDialogFragment;
 import com.example.task.controller.fragment.TaskRecyclerViewFragment;
 import com.example.task.controller.fragment.WarningDialogFragment;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -28,9 +25,11 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
     public static final String NEW_TASK_DIALOG_FRAGMENT = "task dialog fragment";
     public static final String TASK_DETAIL_DIALOG_FRAGMENT = "task detail dialog fragment";
     public static final String TAG_RECYCLER_VIEW = "recyclerView";
+    public static final String TAG_PAGER_ACTIVITY = "pager_activity";
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
-    private FloatingActionButton mFloatingActionButton;
+    private FloatingActionButton mFbAdd;
+    private FloatingActionButton mFbHistory;
 
 
     @Override
@@ -50,9 +49,13 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
         mTabLayout.getTabAt(2).setIcon(R.drawable.ic_done);
 
         setClickListeners();
+    }
 
-
-
+    private void findViews() {
+        mTabLayout = findViewById(R.id.tab_layout);
+        mViewPager = findViewById(R.id.view_pager);
+        mFbAdd = findViewById(R.id.fb_add);
+        mFbHistory = findViewById(R.id.fb_history);
     }
 
     private void setViewPagerAdapter() {
@@ -61,19 +64,22 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
     }
 
     private void setClickListeners() {
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+        mFbAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NewTaskDialogFragment newTaskDialogFragment = NewTaskDialogFragment.newInstance();
                 newTaskDialogFragment.show(getSupportFragmentManager(), NEW_TASK_DIALOG_FRAGMENT);
             }
         });
-    }
 
-    private void findViews() {
-        mTabLayout = findViewById(R.id.tab_layout);
-        mViewPager = findViewById(R.id.view_pager);
-        mFloatingActionButton = findViewById(R.id.floating_action_button);
+        mFbHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HistoryDialogFragment historyDialogFragment = HistoryDialogFragment.newInstance();
+                historyDialogFragment.show(getSupportFragmentManager(), TAG_PAGER_ACTIVITY);
+
+            }
+        });
     }
 
     private String setTabText(int position) {
@@ -92,28 +98,26 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
         return title;
     }
 
-    @Override
-    public void updateRecyclerView() {
+    private void updateUi() {
         for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
             if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
                 ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
         }
+    }
+
+    @Override
+    public void updateRecyclerView() {
+        updateUi();
     }
 
     @Override
     public void onTaskClicked() {
-        for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
-            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
-                ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
-        }
+        updateUi();
     }
 
     @Override
     public void onDeleteAll() {
-        for (int i = 0; i < getSupportFragmentManager().getFragments().size(); i++) {
-            if (getSupportFragmentManager().getFragments().get(i) instanceof TaskRecyclerViewFragment)
-                ((TaskRecyclerViewFragment) getSupportFragmentManager().getFragments().get(i)).updateUI();
-        }
+        updateUi();
     }
 
     @Override

@@ -84,7 +84,8 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
             mLayoutRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TaskDetailDialogFragment taskDetailDialogFragment = TaskDetailDialogFragment.newInstance(mTaskList.get(getAdapterPosition()));
+                    TaskDetailDialogFragment taskDetailDialogFragment =
+                            TaskDetailDialogFragment.newInstance(mTaskList.get(getAdapterPosition()));
                     taskDetailDialogFragment.show(((AppCompatActivity) mActivity).getSupportFragmentManager(), TASK_DETAIL_DIALOG_FRAGMENT);
                 }
             });
@@ -96,7 +97,6 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
                     sendIntent.setAction(Intent.ACTION_SEND);
                     sendIntent.putExtra(Intent.EXTRA_TEXT, shareText());
                     sendIntent.setType("text/plain");
-
                     Intent shareIntent = Intent.createChooser(sendIntent, null);
                     mActivity.startActivity(shareIntent);
                 }
