@@ -16,6 +16,7 @@ import com.example.task.controller.fragment.NewTaskDialogFragment;
 import com.example.task.controller.fragment.TaskDetailDialogFragment;
 import com.example.task.controller.fragment.TaskRecyclerViewFragment;
 import com.example.task.controller.fragment.WarningDialogFragment;
+import com.example.task.repository.UserRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -30,14 +31,17 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
     private ViewPager2 mViewPager;
     private FloatingActionButton mFbAdd;
     private FloatingActionButton mFbHistory;
+    private UserRepository mUserRepository;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mUserRepository = UserRepository.getInstance(this);
         setContentView(R.layout.activity_pager);
 
         findViews();
+        initView();
 
         setViewPagerAdapter();
 
@@ -49,6 +53,11 @@ public class PagerActivity extends AppCompatActivity implements NewTaskDialogFra
         mTabLayout.getTabAt(2).setIcon(R.drawable.ic_done);
 
         setClickListeners();
+    }
+
+    private void initView() {
+        if (!mUserRepository.getCurrentUser().getUserName().equals("admin"))
+            mFbHistory.setVisibility(View.INVISIBLE);
     }
 
     private void findViews() {
