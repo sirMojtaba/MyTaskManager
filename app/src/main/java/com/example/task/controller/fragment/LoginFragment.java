@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.task.R;
 import com.example.task.controller.activity.PagerActivity;
+import com.example.task.controller.activity.SinUpActivity;
 import com.example.task.model.User;
 import com.example.task.repository.UserRepository;
 import com.google.android.material.snackbar.Snackbar;
@@ -24,6 +26,7 @@ public class LoginFragment extends Fragment {
     private Button mButtonLogin;
     private Button mButtonSignUp;
     private UserRepository mUserRepository;
+    private TextView mTextViewSignUp;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -59,6 +62,7 @@ public class LoginFragment extends Fragment {
         mEditTextPassword = view.findViewById(R.id.edit_text_password);
         mButtonLogin = view.findViewById(R.id.button_login);
         mButtonSignUp = view.findViewById(R.id.button_signup);
+        mTextViewSignUp = view.findViewById(R.id.text_view_signup);
     }
 
     private void setClickListeners() {
@@ -84,7 +88,7 @@ public class LoginFragment extends Fragment {
 
         });
 
-        mButtonSignUp.setOnClickListener(new View.OnClickListener() {
+        /*mButtonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mEditTextUserName.getText().length() == 0 || mEditTextPassword.getText().length() == 0)
@@ -104,6 +108,14 @@ public class LoginFragment extends Fragment {
                         Snackbar.make(getView(), "The user created successfully, now you can Log in.", Snackbar.LENGTH_LONG).show();
                     }
                 }
+            }
+        });*/
+
+        mTextViewSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SinUpActivity.class);
+                startActivity(intent);
             }
         });
     }
